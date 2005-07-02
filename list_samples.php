@@ -1,11 +1,11 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.1 2005/07/02 14:56:31 bitweaver Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.2 2005/07/02 15:17:22 wolff_borg Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // Initialization
 require_once('../bit_setup_inc.php' );
-require_once(SAMPLE_PKG_PATH.'TikiSample.php' );
+require_once(SAMPLE_PKG_PATH.'BitSample.php' );
 
 // Is package installed and enabled
 $gBitSystem->verifyPackage('sample' );
@@ -38,7 +38,7 @@ if (isset($_REQUEST["submit_mult"]) && isset($_REQUEST["checked"]) && $_REQUEST[
                 $gBitSystem->confirmDialog( $formHash, array( 'warning' => 'Are you sure you want to delete '.count($_REQUEST["checked"]).' samples?', 'error' => 'This cannot be undone!' ) );
         } else {
                 foreach ($_REQUEST["checked"] as $deleteId) {
-                        $tmpPage = new TikiSample( $deleteId );
+                        $tmpPage = new BitSample( $deleteId );
                         if( !$tmpPage->load() || !$tmpPage->expunge() ) {
                                 array_merge( $errors, array_values( $tmpPage->mErrors ) );
                         }
@@ -50,7 +50,7 @@ if (isset($_REQUEST["submit_mult"]) && isset($_REQUEST["checked"]) && $_REQUEST[
 }
 
 
-$sample = new TikiSample();
+$sample = new BitSample();
 $listsamples = $sample->getList( $_REQUEST );
 
 

@@ -1,14 +1,14 @@
 <?php
 require_once('../../bit_setup_inc.php');
-require_once(SAMPLE_PKG_PATH.'TikiSample.php');
+require_once(SAMPLE_PKG_PATH.'BitSample.php');
 
-class TestTikiSample extends Test {
+class TestBitSample extends Test {
     
     var $test;
     var $id;
     var $count;
     
-    function TestTikiSample()
+    function TestBitSample()
     {
         global $gBitSystem;
         Assert::equalsTrue($gBitSystem->isPackageActive( 'sample' ), 'Package not active');
@@ -16,7 +16,7 @@ class TestTikiSample extends Test {
 
     function testCreateItem()
     {
-        $this->test = new TikiSample();
+        $this->test = new BitSample();
         Assert::equalsTrue($this->test != NULL, 'Error during initialisation');
     }
 
@@ -52,7 +52,7 @@ class TestTikiSample extends Test {
     
     function testLoadItem()
     {
-        $this->test = new TikiSample($this->id);
+        $this->test = new BitSample($this->id);
         Assert::equals($this->test->load(), 23);
     }
 

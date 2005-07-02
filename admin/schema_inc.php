@@ -1,6 +1,6 @@
 <?php
 
-$tables = array('tiki_samples' => "
+$tables = array('bit_samples' => "
 sample_id I4 AUTO PRIMARY,
 content_id I4 NOTNULL,
 description C(160)
@@ -24,19 +24,19 @@ $gBitInstaller->registerPackageInfo(SAMPLE_PKG_DIR, array('description' => "Samp
 ) );
 
 // ### Indexes
-$indices = array('tiki_samples_sample_id_idx' => array('table' => 'tiki_samples', 'cols' => 'sample_id', 'opts' => NULL ),
+$indices = array('bit_samples_sample_id_idx' => array('table' => 'bit_samples', 'cols' => 'sample_id', 'opts' => NULL ),
 );
 $gBitInstaller->registerSchemaIndexes(SAMPLE_PKG_DIR, $indices );
 
 /*// ### Sequences
 $sequences = array (
-'tiki_sample_id_seq' => array( 'start' => 1 )
+'bit_sample_id_seq' => array( 'start' => 1 )
 );
 $gBitInstaller->registerSchemaSequences( SAMPLE_PKG_DIR, $sequences );
 */
 
 
-$gBitInstaller->registerSchemaDefault(SAMPLE_PKG_DIR, array(//      "INSERT INTO `".BIT_DB_PREFIX."tiki_sample_types` (`type`) VALUES ('Sample')",
+$gBitInstaller->registerSchemaDefault(SAMPLE_PKG_DIR, array(//      "INSERT INTO `".BIT_DB_PREFIX."bit_sample_types` (`type`) VALUES ('Sample')",
 ) );
 
 // ### Default UserPermissions

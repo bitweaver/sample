@@ -1,6 +1,6 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/Attic/TikiSample.php,v 1.1 2005/07/02 14:56:31 bitweaver Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.1 2005/07/02 15:17:22 wolff_borg Exp $
 *
 * Copyright (c) 2004 bitweaver.org
 * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
 * All Rights Reserved. See copyright.txt for details and a complete list of authors.
 * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 *
-* $Id: TikiSample.php,v 1.1 2005/07/02 14:56:31 bitweaver Exp $
+* $Id: BitSample.php,v 1.1 2005/07/02 15:17:22 wolff_borg Exp $
 */
 
 /**
@@ -19,9 +19,9 @@
 *
 * @author spider <spider@steelsun.com>
 *
-* @version $Revision: 1.1 $ $Date: 2005/07/02 14:56:31 $ $Author: bitweaver $
+* @version $Revision: 1.1 $ $Date: 2005/07/02 15:17:22 $ $Author: wolff_borg $
 *
-* @class TikiSample
+* @class BitSample
 */
 
 require_once(LIBERTY_PKG_PATH.'LibertyAttachable.php' );
@@ -29,9 +29,9 @@ require_once(LIBERTY_PKG_PATH.'LibertyAttachable.php' );
     /**
 * This is used to uniquely identify the object
 */
-define('TIKISAMPLE_CONTENT_TYPE_GUID', 'tikisample' );
+define('BITSAMPLE_CONTENT_TYPE_GUID', 'bitsample' );
 
-class TikiSample extends LibertyAttachable {
+class BitSample extends LibertyAttachable {
     /**
 * Primary key for our mythical Sample class object & table
 * @public
@@ -41,17 +41,17 @@ class TikiSample extends LibertyAttachable {
     /**
 * During initialisation, be sure to call our base constructors
 **/
-    function TikiSample($pSampleId=NULL, $pContentId=NULL )
+    function BitSample($pSampleId=NULL, $pContentId=NULL )
     {
         LibertyAttachable::LibertyAttachable();
         $this->mSampleId = $pSampleId;
         $this->mContentId = $pContentId;
-        $this->mContentTypeGuid = TIKISAMPLE_CONTENT_TYPE_GUID;
-        $this->registerContentType(TIKISAMPLE_CONTENT_TYPE_GUID, array('content_type_guid' => TIKISAMPLE_CONTENT_TYPE_GUID,
+        $this->mContentTypeGuid = BITSAMPLE_CONTENT_TYPE_GUID;
+        $this->registerContentType(BITSAMPLE_CONTENT_TYPE_GUID, array('content_type_guid' => BITSAMPLE_CONTENT_TYPE_GUID,
         'content_description' => 'Sample package with bare essentials',
-        'handler_class' => 'TikiSample',
+        'handler_class' => 'BitSample',
         'handler_package' => 'sample',
-        'handler_file' => 'TikiSample.php',
+        'handler_file' => 'BitSample.php',
         'maintainer_url' => 'http://www.bitweaver.org'
         ) );
 }
@@ -70,8 +70,8 @@ class TikiSample extends LibertyAttachable {
             $query = "SELECT ts.*, tc.*, " .
             "uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name, " .
             "uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name " .
-            "FROM `".BIT_DB_PREFIX."tiki_samples` ts " .
-            "INNER JOIN `".BIT_DB_PREFIX."tiki_content` tc ON (tc.`content_id` = ts.`content_id`) " .
+            "FROM `".BIT_DB_PREFIX."bit_samples` ts " .
+            "INNER JOIN `".BIT_DB_PREFIX."bit_content` tc ON (tc.`content_id` = ts.`content_id`) " .
             "LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON (uue.`user_id` = tc.`modifier_user_id`) " .
             "LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON (uuc.`user_id` = tc.`user_id`) " .
             "WHERE ts.`$lookupColumn`=?";
@@ -107,7 +107,7 @@ class TikiSample extends LibertyAttachable {
     function store(&$pParamHash )
     {
         if ($this->verify($pParamHash ) && LibertyAttachable::store($pParamHash ) ) {
-            $table = BIT_DB_PREFIX."tiki_samples";
+            $table = BIT_DB_PREFIX."bit_samples";
             $this->mDb->StartTrans();
             if ($this->mSampleId ) {
                 $locId = array("name" => "sample_id", "value" => $pParamHash['sample_id'] );
@@ -118,7 +118,7 @@ class TikiSample extends LibertyAttachable {
                     // if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
                     $pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
                 } else {
-                    $pParamHash['sample_store']['sample_id'] = $this->GenID('tiki_samples_sample_id_seq');
+                    $pParamHash['sample_store']['sample_id'] = $this->GenID('bit_samples_sample_id_seq');
                 }
                 $this->mSampleId = $pParamHash['sample_store']['sample_id'];
                 
@@ -204,7 +204,7 @@ class TikiSample extends LibertyAttachable {
         $ret = FALSE;
         if ($this->isValid() ) {
             $this->mDb->StartTrans();
-            $query = "DELETE FROM `".BIT_DB_PREFIX."tiki_samples` WHERE `content_id` = ?";
+            $query = "DELETE FROM `".BIT_DB_PREFIX."bit_samples` WHERE `content_id` = ?";
             $result = $this->query($query, array($this->mContentId ) );
             if (LibertyAttachable::expunge() ) {
                 $ret = TRUE;
@@ -222,7 +222,7 @@ class TikiSample extends LibertyAttachable {
     }
     
     /**
-* This function generates a list of records from the tiki_content database for use in a list page
+* This function generates a list of records from the bit_content database for use in a list page
 **/
     function getList(&$pParamHash )
     {
@@ -252,10 +252,10 @@ class TikiSample extends LibertyAttachable {
         }
         
         $query = "SELECT ts.*, tc.`content_id`, tc.`title`, tc.`data`
-FROM `".BIT_DB_PREFIX."tiki_samples` ts INNER JOIN `".BIT_DB_PREFIX."tiki_content` tc ON (tc.`content_id` = ts.`content_id`)
-".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".TIKISAMPLE_CONTENT_TYPE_GUID."'
+FROM `".BIT_DB_PREFIX."bit_samples` ts INNER JOIN `".BIT_DB_PREFIX."bit_content` tc ON (tc.`content_id` = ts.`content_id`)
+".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
 ORDER BY ".$this->convert_sortmode($sort_mode);
-        $query_cant = "select count(*) from `".BIT_DB_PREFIX."tiki_content` tc ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".TIKISAMPLE_CONTENT_TYPE_GUID."'";
+        $query_cant = "select count(*) from `".BIT_DB_PREFIX."bit_content` tc ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
         $result = $this->query($query,$bindvars,$max_records,$offset);
         $ret = array();
         while ($res = $result->fetchRow()) {
