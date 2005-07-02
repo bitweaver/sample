@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.1 2005/07/02 14:56:31 bitweaver Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.2 2005/07/02 16:03:25 wolff_borg Exp $ *}
 <div class="floaticon">
 	{if $gBitUser->hasPermission( 'bit_p_admin_sample' )}
 		<a title="{tr}configure listing{/tr}" href="{$gBitLoc.KERNEL_PKG_URL}admin/index.php?page=sample">{biticon ipackage=liberty iname="config" iexplain="configure"}</a>
@@ -33,6 +33,8 @@
 	<th style="text-align:center;"><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'name_desc'}title_asc{else}title_desc{/if}">{tr}Title{/tr}</a></th>
 {/if}{if $sample_list_description eq 'y'}
 	<th style="text-align:center;"><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'description_desc'}description_asc{else}description_desc{/if}">{tr}Description{/tr}</a></th>
+{/if}{if $sample_list_data eq 'y'}
+	<th style="text-align:center;"><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'data_desc'}data_asc{else}data_desc{/if}">{tr}Text{/tr}</a></th>
 {/if}
 </tr>
 
@@ -53,6 +55,9 @@
 	<td style="text-align:center;">{$list[changes].title}</td>
 {/if}
 {if $sample_list_description eq 'y'}
+	<td style="text-align:center;">{$list[changes].description}</td>
+{/if}
+{if $sample_list_data eq 'y'}
 	<td style="text-align:center;">{$list[changes].data}</td>
 {/if}
 </tr>

@@ -1,6 +1,6 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.1 2005/07/02 15:17:22 wolff_borg Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.2 2005/07/02 16:03:21 wolff_borg Exp $
 *
 * Copyright (c) 2004 bitweaver.org
 * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
 * All Rights Reserved. See copyright.txt for details and a complete list of authors.
 * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 *
-* $Id: BitSample.php,v 1.1 2005/07/02 15:17:22 wolff_borg Exp $
+* $Id: BitSample.php,v 1.2 2005/07/02 16:03:21 wolff_borg Exp $
 */
 
 /**
@@ -19,7 +19,7 @@
 *
 * @author spider <spider@steelsun.com>
 *
-* @version $Revision: 1.1 $ $Date: 2005/07/02 15:17:22 $ $Author: wolff_borg $
+* @version $Revision: 1.2 $ $Date: 2005/07/02 16:03:21 $ $Author: wolff_borg $
 *
 * @class BitSample
 */
@@ -71,7 +71,7 @@ class BitSample extends LibertyAttachable {
             "uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name, " .
             "uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name " .
             "FROM `".BIT_DB_PREFIX."bit_samples` ts " .
-            "INNER JOIN `".BIT_DB_PREFIX."bit_content` tc ON (tc.`content_id` = ts.`content_id`) " .
+            "INNER JOIN `".BIT_DB_PREFIX."tiki_content` tc ON (tc.`content_id` = ts.`content_id`) " .
             "LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON (uue.`user_id` = tc.`modifier_user_id`) " .
             "LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON (uuc.`user_id` = tc.`user_id`) " .
             "WHERE ts.`$lookupColumn`=?";
@@ -222,7 +222,7 @@ class BitSample extends LibertyAttachable {
     }
     
     /**
-* This function generates a list of records from the bit_content database for use in a list page
+* This function generates a list of records from the tiki_content database for use in a list page
 **/
     function getList(&$pParamHash )
     {
@@ -252,10 +252,10 @@ class BitSample extends LibertyAttachable {
         }
         
         $query = "SELECT ts.*, tc.`content_id`, tc.`title`, tc.`data`
-FROM `".BIT_DB_PREFIX."bit_samples` ts INNER JOIN `".BIT_DB_PREFIX."bit_content` tc ON (tc.`content_id` = ts.`content_id`)
+FROM `".BIT_DB_PREFIX."bit_samples` ts INNER JOIN `".BIT_DB_PREFIX."tiki_content` tc ON (tc.`content_id` = ts.`content_id`)
 ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
 ORDER BY ".$this->convert_sortmode($sort_mode);
-        $query_cant = "select count(*) from `".BIT_DB_PREFIX."bit_content` tc ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
+        $query_cant = "select count(*) from `".BIT_DB_PREFIX."tiki_content` tc ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
         $result = $this->query($query,$bindvars,$max_records,$offset);
         $ret = array();
         while ($res = $result->fetchRow()) {
