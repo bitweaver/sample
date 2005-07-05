@@ -13,10 +13,10 @@ global $gBitInstaller;
 $gBitInstaller->makePackageHomeable(SAMPLE_PKG_NAME);
 
 foreach(array_keys($tables ) AS $tableName ) {
-    $gBitInstaller->registerSchemaTable(SAMPLE_PKG_DIR, $tableName, $tables[$tableName] );
+    $gBitInstaller->registerSchemaTable(SAMPLE_PKG_NAME, $tableName, $tables[$tableName] );
 }
 
-$gBitInstaller->registerPackageInfo(SAMPLE_PKG_DIR, array('description' => "Sample package to demonstrate how to build a bitweaver package.",
+$gBitInstaller->registerPackageInfo(SAMPLE_PKG_NAME, array('description' => "Sample package to demonstrate how to build a bitweaver package.",
 'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
 'version' => '0.1',
 'state' => 'beta',
@@ -26,17 +26,17 @@ $gBitInstaller->registerPackageInfo(SAMPLE_PKG_DIR, array('description' => "Samp
 // ### Indexes
 $indices = array('bit_samples_sample_id_idx' => array('table' => 'bit_samples', 'cols' => 'sample_id', 'opts' => NULL ),
 );
-$gBitInstaller->registerSchemaIndexes(SAMPLE_PKG_DIR, $indices );
+$gBitInstaller->registerSchemaIndexes(SAMPLE_PKG_NAME, $indices );
 
 /*// ### Sequences
 $sequences = array (
 'bit_sample_id_seq' => array( 'start' => 1 )
 );
-$gBitInstaller->registerSchemaSequences( SAMPLE_PKG_DIR, $sequences );
+$gBitInstaller->registerSchemaSequences( SAMPLE_PKG_NAME, $sequences );
 */
 
 
-$gBitInstaller->registerSchemaDefault(SAMPLE_PKG_DIR, array(//      "INSERT INTO `".BIT_DB_PREFIX."bit_sample_types` (`type`) VALUES ('Sample')",
+$gBitInstaller->registerSchemaDefault(SAMPLE_PKG_NAME, array(//      "INSERT INTO `".BIT_DB_PREFIX."bit_sample_types` (`type`) VALUES ('Sample')",
 ) );
 
 // ### Default UserPermissions
