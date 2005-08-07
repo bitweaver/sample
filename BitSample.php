@@ -1,6 +1,6 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.3 2005/08/07 21:43:59 lsces Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.4 2005/08/07 22:18:32 lsces Exp $
 *
 * Copyright (c) 2004 bitweaver.org
 * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
 * All Rights Reserved. See copyright.txt for details and a complete list of authors.
 * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 *
-* $Id: BitSample.php,v 1.3 2005/08/07 21:43:59 lsces Exp $
+* $Id: BitSample.php,v 1.4 2005/08/07 22:18:32 lsces Exp $
 */
 
 /**
@@ -19,7 +19,7 @@
 *
 * @author spider <spider@steelsun.com>
 *
-* @version $Revision: 1.3 $ $Date: 2005/08/07 21:43:59 $ $Author: lsces $
+* @version $Revision: 1.4 $ $Date: 2005/08/07 22:18:32 $ $Author: lsces $
 *
 * @class BitSample
 */
@@ -111,14 +111,14 @@ class BitSample extends LibertyAttachable {
             $this->mDb->StartTrans();
             if ($this->mSampleId ) {
                 $locId = array("name" => "sample_id", "value" => $pParamHash['sample_id'] );
-                $result = $this->associateUpdate($table, $pParamHash['sample_store'], $locId );
+                $result = $this->mDb->associateUpdate($table, $pParamHash['sample_store'], $locId );
             } else {
                 $pParamHash['sample_store']['content_id'] = $pParamHash['content_id'];
                 if (isset($pParamHash['sample_id'] ) && is_numeric($pParamHash['sample_id'] ) ) {
                     // if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
                     $pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
                 } else {
-                    $pParamHash['sample_store']['sample_id'] = $this->GenID('bit_samples_sample_id_seq');
+                    $pParamHash['sample_store']['sample_id'] = $this->mDb->GenID('bit_samples_sample_id_seq');
                 }
                 $this->mSampleId = $pParamHash['sample_store']['sample_id'];
                 
@@ -254,7 +254,7 @@ class BitSample extends LibertyAttachable {
         $query = "SELECT ts.*, tc.`content_id`, tc.`title`, tc.`data`
 FROM `".BIT_DB_PREFIX."bit_samples` ts INNER JOIN `".BIT_DB_PREFIX."tiki_content` tc ON (tc.`content_id` = ts.`content_id`)
 ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
-ORDER BY ".$this->convert_sortmode($sort_mode);
+ORDER BY ".$this->mDb->convert_sortmode($sort_mode);
         $query_cant = "select count(*) from `".BIT_DB_PREFIX."tiki_content` tc ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
         $result = $this->mDb->query($query,$bindvars,$max_records,$offset);
         $ret = array();
@@ -263,7 +263,7 @@ ORDER BY ".$this->convert_sortmode($sort_mode);
         }
         $pParamHash["data"] = $ret;
         
-        $pParamHash["cant"] = $this->getOne($query_cant,$bindvars);
+        $pParamHash["cant"] = $this->mDb->getOne($query_cant,$bindvars);
         
         LibertyContent::postGetList($pParamHash );
         return $pParamHash;
