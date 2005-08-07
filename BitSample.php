@@ -1,6 +1,6 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.2 2005/07/02 16:03:21 wolff_borg Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.3 2005/08/07 21:43:59 lsces Exp $
 *
 * Copyright (c) 2004 bitweaver.org
 * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
 * All Rights Reserved. See copyright.txt for details and a complete list of authors.
 * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 *
-* $Id: BitSample.php,v 1.2 2005/07/02 16:03:21 wolff_borg Exp $
+* $Id: BitSample.php,v 1.3 2005/08/07 21:43:59 lsces Exp $
 */
 
 /**
@@ -19,7 +19,7 @@
 *
 * @author spider <spider@steelsun.com>
 *
-* @version $Revision: 1.2 $ $Date: 2005/07/02 16:03:21 $ $Author: wolff_borg $
+* @version $Revision: 1.3 $ $Date: 2005/08/07 21:43:59 $ $Author: lsces $
 *
 * @class BitSample
 */
@@ -75,7 +75,7 @@ class BitSample extends LibertyAttachable {
             "LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON (uue.`user_id` = tc.`modifier_user_id`) " .
             "LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON (uuc.`user_id` = tc.`user_id`) " .
             "WHERE ts.`$lookupColumn`=?";
-            $result = $this->query($query, array($lookupId ) );
+            $result = $this->mDb->query($query, array($lookupId ) );
             
             if ($result && $result->numRows() ) {
                 $this->mInfo = $result->fields;
@@ -122,7 +122,7 @@ class BitSample extends LibertyAttachable {
                 }
                 $this->mSampleId = $pParamHash['sample_store']['sample_id'];
                 
-                $result = $this->associateInsert($table, $pParamHash['sample_store'] );
+                $result = $this->mDb->associateInsert($table, $pParamHash['sample_store'] );
             }
             
             
@@ -205,7 +205,7 @@ class BitSample extends LibertyAttachable {
         if ($this->isValid() ) {
             $this->mDb->StartTrans();
             $query = "DELETE FROM `".BIT_DB_PREFIX."bit_samples` WHERE `content_id` = ?";
-            $result = $this->query($query, array($this->mContentId ) );
+            $result = $this->mDb->query($query, array($this->mContentId ) );
             if (LibertyAttachable::expunge() ) {
                 $ret = TRUE;
                 $this->mDb->CompleteTrans();
@@ -256,7 +256,7 @@ FROM `".BIT_DB_PREFIX."bit_samples` ts INNER JOIN `".BIT_DB_PREFIX."tiki_content
 ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
 ORDER BY ".$this->convert_sortmode($sort_mode);
         $query_cant = "select count(*) from `".BIT_DB_PREFIX."tiki_content` tc ".(!empty($mid ) ? $mid.' AND ' : ' WHERE ')." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
-        $result = $this->query($query,$bindvars,$max_records,$offset);
+        $result = $this->mDb->query($query,$bindvars,$max_records,$offset);
         $ret = array();
         while ($res = $result->fetchRow()) {
             $ret[] = $res;
