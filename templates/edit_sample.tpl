@@ -1,5 +1,5 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.1 2005/07/02 14:56:31 bitweaver Exp $ *}
-{popup_init src="`$gBitLoc.THEMES_PKG_URL`overlib.js"}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.2 2005/09/04 08:25:31 wolff_borg Exp $ *}
+{popup_init src="`$smarty.const.THEMES_PKG_URL`overlib.js"}
 {strip}
 <div class="floaticon">{bithelp}</div>
 

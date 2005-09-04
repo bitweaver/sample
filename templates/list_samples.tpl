@@ -1,14 +1,14 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.2 2005/07/02 16:03:25 wolff_borg Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.3 2005/09/04 08:25:31 wolff_borg Exp $ *}
 <div class="floaticon">
 	{if $gBitUser->hasPermission( 'bit_p_admin_sample' )}
-		<a title="{tr}configure listing{/tr}" href="{$gBitLoc.KERNEL_PKG_URL}admin/index.php?page=sample">{biticon ipackage=liberty iname="config" iexplain="configure"}</a>
+		<a title="{tr}configure listing{/tr}" href="{$smarty.const.KERNEL_PKG_URL}admin/index.php?page=sample">{biticon ipackage=liberty iname="config" iexplain="configure"}</a>
 	{/if}
 	{bithelp}
 </div>
 
 <div class="admin wiki">
 <div class="header">
-<h1><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php">{tr}Sample Records{/tr}</a></h1>
+<h1><a href="{$smarty.const.SAMPLE_PKG_URL}list_samples.php">{tr}Sample Records{/tr}</a></h1>
 </div>
 
 <div class="body">
@@ -28,13 +28,13 @@
 {if $checkboxes_on eq 'y'}
 	<th>&nbsp;</th>{/if}
 {if $sample_list_sample_id eq 'y'}
-	<th><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'sample_id_desc'}sample_id_asc{else}sample_id_desc{/if}">{tr}Sample Id{/tr}</a></th>
+	<th><a href="{$smarty.const.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'sample_id_desc'}sample_id_asc{else}sample_id_desc{/if}">{tr}Sample Id{/tr}</a></th>
 {/if}{if $sample_list_title eq 'y'}
-	<th style="text-align:center;"><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'name_desc'}title_asc{else}title_desc{/if}">{tr}Title{/tr}</a></th>
+	<th style="text-align:center;"><a href="{$smarty.const.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'name_desc'}title_asc{else}title_desc{/if}">{tr}Title{/tr}</a></th>
 {/if}{if $sample_list_description eq 'y'}
-	<th style="text-align:center;"><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'description_desc'}description_asc{else}description_desc{/if}">{tr}Description{/tr}</a></th>
+	<th style="text-align:center;"><a href="{$smarty.const.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'description_desc'}description_asc{else}description_desc{/if}">{tr}Description{/tr}</a></th>
 {/if}{if $sample_list_data eq 'y'}
-	<th style="text-align:center;"><a href="{$gBitLoc.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'data_desc'}data_asc{else}data_desc{/if}">{tr}Text{/tr}</a></th>
+	<th style="text-align:center;"><a href="{$smarty.const.SAMPLE_PKG_URL}list_samples.php?offset={$control.offset}&amp;sort_mode={if $control.sort_mode eq 'data_desc'}data_asc{else}data_desc{/if}">{tr}Text{/tr}</a></th>
 {/if}
 </tr>
 
@@ -45,9 +45,9 @@
 	<td><input type="checkbox" name="checked[]" value="{$list[changes].sample_id|escape}" /></td>
 {/if}
 {if $sample_list_sample_id eq 'y'}
-	<td><a href="{$gBitLoc.SAMPLE_PKG_URL}index.php?sample_id={$list[changes].sample_id|escape:"url"}" title="{$list[changes].sample_id}">{$list[changes].sample_id|truncate:20:"...":true}</a>
+	<td><a href="{$smarty.const.SAMPLE_PKG_URL}index.php?sample_id={$list[changes].sample_id|escape:"url"}" title="{$list[changes].sample_id}">{$list[changes].sample_id|truncate:20:"...":true}</a>
 		{if $gBitUser->hasPermission( 'bit_p_edit_sample' )}
-			(<a href="{$gBitLoc.SAMPLE_PKG_URL}edit.php?sample_id={$list[changes].sample_id|escape:"url"}">{tr}edit{/tr}</a>)
+			(<a href="{$smarty.const.SAMPLE_PKG_URL}edit.php?sample_id={$list[changes].sample_id|escape:"url"}">{tr}edit{/tr}</a>)
 		{/if}
 	</td>
 {/if}

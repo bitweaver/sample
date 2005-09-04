@@ -5,7 +5,7 @@
   {if $print_page ne 'y'}
     {if !$lock}
       {if $bit_p_edit eq 'y' or $page eq 'SandBox'}
-		<a href="edit.php?sample_id={$gContent->mInfo.sample_id}" {if $beingEdited eq 'y'}{popup_init src="`$gBitLoc.THEMES_PKG_URL`overlib.js"}{popup text="$semUser" width="-1"}{/if}>{biticon ipackage=liberty iname="edit" iexplain="edit"}</a>
+		<a href="edit.php?sample_id={$gContent->mInfo.sample_id}" {if $beingEdited eq 'y'}{popup_init src="`$smarty.const.THEMES_PKG_URL`overlib.js"}{popup text="$semUser" width="-1"}{/if}>{biticon ipackage=liberty iname="edit" iexplain="edit"}</a>
       {/if}
     {/if}
     <a title="{tr}print{/tr}" href="print.php?sample_id={$gContent->mInfo.sample_id}">{biticon ipackage=liberty iname="print" iexplain="print"}</a>
