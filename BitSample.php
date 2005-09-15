@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.5 2005/09/03 12:06:16 squareing Exp $
-* $Id: BitSample.php,v 1.5 2005/09/03 12:06:16 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.6 2005/09/15 19:55:08 squareing Exp $
+* $Id: BitSample.php,v 1.6 2005/09/15 19:55:08 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.5 $ $Date: 2005/09/03 12:06:16 $ $Author: squareing $
+* @version $Revision: 1.6 $ $Date: 2005/09/15 19:55:08 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -164,7 +164,7 @@ class BitSample extends LibertyAttachable {
 		}
 
 		if( !empty( $pParamHash['data'] ) ) {
-			$pParamHash['content_store']['data'] = $pParamHash['data'];
+			$pParamHash['edit'] = $pParamHash['data'];
 		}
 
 		// check for name issues, first truncate length if too long
