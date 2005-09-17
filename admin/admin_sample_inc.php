@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.3 2005/07/02 16:03:24 wolff_borg Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.4 2005/09/17 18:39:03 squareing Exp $
 // Copyright (c) 2005 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -12,14 +12,21 @@ if (isset($_REQUEST["sampleset"]) && isset($_REQUEST["homeSample"])) {
 require_once(SAMPLE_PKG_PATH.'BitSample.php' );
 
 $formSampleLists = array(
+	"sample_list_sample_id" => array(
+		'label' => 'Id',
+		'note' => 'Display the sample id.',
+	),
 	"sample_list_title" => array(
 		'label' => 'Title',
+		'note' => 'Display the title.',
 	),
 	"sample_list_description" => array(
 		'label' => 'Description',
+		'note' => 'Display the description.',
 	),
 	"sample_list_data" => array(
 		'label' => 'Text',
+		'note' => 'Display the text.',
 	),
 );
 $smarty->assign( 'formSampleLists',$formSampleLists );

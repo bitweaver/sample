@@ -1,5 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.2 2005/09/04 08:25:31 wolff_borg Exp $ *}
-{popup_init src="`$smarty.const.THEMES_PKG_URL`overlib.js"}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.3 2005/09/17 18:39:03 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -7,7 +6,7 @@
 {if $editpageconflict == 'y'}
 	<script language="javascript" type="text/javascript">
 		<!-- Hide Script
-			alert("{tr}This page is being edited by{/tr} {$semUser}. {tr}Proceed at your own peril{/tr}.")
+			alert("{tr}This page is being edited by {$semUser}{/tr}. {tr}Proceed at your own peril{/tr}.")
 		//End Hide Script-->
 	</script>
 {/if}
@@ -22,11 +21,11 @@
 
 	<div class="header">
 		<h1>
-		{if $gContent->mInfo.sample_id}
-			{tr}{tr}Edit{/tr} {$gContent->mInfo.title}{if $gContent->mInfo.page_alias}&nbsp;( {$gContent->mInfo.page_alias} ){/if}{/tr}
-		{else}
-			{tr}Create New Record{/tr}
-		{/if}
+			{if $gContent->mInfo.sample_id}
+				{tr}{tr}Edit{/tr} {$gContent->mInfo.title}{if $gContent->mInfo.page_alias}&nbsp;( {$gContent->mInfo.page_alias} ){/if}{/tr}
+			{else}
+				{tr}Create New Record{/tr}
+			{/if}
 		</h1>
 	</div>
 
@@ -52,18 +51,18 @@
 					</div>
 				{/if}
 
+				{include file="bitpackage:liberty/edit_format.tpl"}
+
 				{if $gBitSystemPrefs.package_smileys eq 'y'}
 					{include file="bitpackage:smileys/smileys_full.tpl"}
 				{/if}
 
 				{if $gBitSystemPrefs.package_quicktags eq 'y'}
-					{include file="bitpackage:quicktags/quicktags_full.tpl" formId="editsampleform"}
+					{include file="bitpackage:quicktags/quicktags_full.tpl"}
 				{/if}
 
 				<div class="row">
 					{forminput}
-						<input type="hidden" name="rows" value="{$rows}" />
-						<input type="hidden" name="cols" value="{$cols}" />
 						<textarea id="{$textarea_id}" name="data" rows="{$rows|default:20}" cols="{$cols|default:80}">{$gContent->mInfo.data|escape}</textarea>
 					{/forminput}
 				</div>
@@ -78,6 +77,3 @@
 </div><!-- end .sample -->
 
 {/strip}
-
-<br />
-

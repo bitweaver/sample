@@ -26,7 +26,6 @@
 		{jstab title="List Settings"}
 			{legend legend="List Settings"}
 				<input type="hidden" name="page" value="{$page}" />
-
 				{foreach from=$formSampleLists key=item item=output}
 					<div class="row">
 						{formlabel label=`$output.label` for=$item}
