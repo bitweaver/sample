@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.2 2005/09/17 18:39:03 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.3 2005/10/24 19:47:32 squareing Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -29,7 +29,7 @@ if (isset($_REQUEST["data"])) {
 
 // If we are in preview mode then preview it!
 if (isset($_REQUEST["preview"])) {
-    $smarty->assign('preview', 'y');
+    $gBitSmarty->assign('preview', 'y');
 }
 
 // Pro
@@ -43,7 +43,7 @@ if (!empty($_REQUEST["save_sample"])) {
         header("Location: ".$gContent->getDisplayUrl() );
         die;
     } else {
-        $smarty->assign_by_ref('errors', $gContent->mErrors );
+        $gBitSmarty->assign_by_ref('errors', $gContent->mErrors );
     }
 }
 
@@ -53,7 +53,7 @@ if ($gBitSystem->isPackageActive( 'quicktags' ) ) {
 }
 
 // WYSIWYG and Quicktag variable
-$smarty->assign( 'textarea_id', 'editsample' );
+$gBitSmarty->assign( 'textarea_id', 'editsample' );
 
 // Display the template
 $gBitSystem->display('bitpackage:sample/edit_sample.tpl', tra('Sample') );

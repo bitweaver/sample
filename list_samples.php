@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.2 2005/07/02 15:17:22 wolff_borg Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.3 2005/10/24 19:47:32 squareing Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -44,7 +44,7 @@ if (isset($_REQUEST["submit_mult"]) && isset($_REQUEST["checked"]) && $_REQUEST[
                         }
                 }
                 if( !empty( $errors ) ) {
-                        $smarty->assign_by_ref( 'errors', $errors );
+                        $gBitSmarty->assign_by_ref( 'errors', $errors );
                 }
         }
 }
@@ -55,8 +55,8 @@ $listsamples = $sample->getList( $_REQUEST );
 
 
 
-$smarty->assign_by_ref('control', $_REQUEST["control"]);
-$smarty->assign_by_ref('list', $listsamples["data"]);
+$gBitSmarty->assign_by_ref('control', $_REQUEST["control"]);
+$gBitSmarty->assign_by_ref('list', $listsamples["data"]);
 
 // Display the template
 $gBitSystem->display('bitpackage:sample/list_samples.tpl', tra('Sample') );
