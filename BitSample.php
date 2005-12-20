@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.6 2005/09/15 19:55:08 squareing Exp $
-* $Id: BitSample.php,v 1.6 2005/09/15 19:55:08 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.7 2005/12/20 18:34:03 squareing Exp $
+* $Id: BitSample.php,v 1.7 2005/12/20 18:34:03 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.6 $ $Date: 2005/09/15 19:55:08 $ $Author: squareing $
+* @version $Revision: 1.7 $ $Date: 2005/12/20 18:34:03 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -51,11 +51,11 @@ class BitSample extends LibertyAttachable {
 	* @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
 	**/
 	function load() {
-		if( !empty( $this->mSampleId ) || !empty( $this->mContentId ) ) {
+		if( $this->verifyId( $this->mSampleId ) || $this->verifyId( $this->mContentId ) ) {
 			// LibertyContent::load()assumes you have joined already, and will not execute any sql!
 			// This is a significant performance optimization
-			$lookupColumn = !empty( $this->mSampleId )? 'sample_id' : 'content_id';
-			$lookupId = !empty( $this->mSampleId )? $this->mSampleId : $this->mContentId;
+			$lookupColumn = $this->verifyId( $this->mSampleId ) ? 'sample_id' : 'content_id';
+			$lookupId = $this->verifyId( $this->mSampleId ) ? $this->mSampleId : $this->mContentId;
 			$query = "SELECT ts.*, tc.*, " .
 			"uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name, " .
 			"uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name " .
@@ -136,25 +136,25 @@ class BitSample extends LibertyAttachable {
 		global $gBitUser, $gBitSystem;
 
 		// make sure we're all loaded up of we have a mSampleId
-		if( $this->mSampleId && empty( $this->mInfo ) ) {
+		if( $this->verifyId( $this->mSampleId ) && empty( $this->mInfo ) ) {
 			$this->load();
 		}
 
-		if( !empty( $this->mInfo['content_id'] ) ) {
+		if( @$this->verifyId( $this->mInfo['content_id'] ) ) {
 			$pParamHash['content_id'] = $this->mInfo['content_id'];
 		}
 
 		// It is possible a derived class set this to something different
-		if( empty( $pParamHash['content_type_guid'] ) ) {
+		if( @$this->verifyId( $pParamHash['content_type_guid'] ) ) {
 			$pParamHash['content_type_guid'] = $this->mContentTypeGuid;
 		}
 
-		if( !empty( $pParamHash['content_id'] ) ) {
+		if( @$this->verifyId( $pParamHash['content_id'] ) ) {
 			$pParamHash['sample_store']['content_id'] = $pParamHash['content_id'];
 		}
 
 		// check some lengths, if too long, then truncate
-		if( $this->isValid()&& !empty( $this->mInfo['description'] )&& empty( $pParamHash['description'] ) ) {
+		if( $this->isValid() && !empty( $this->mInfo['description'] ) && empty( $pParamHash['description'] ) ) {
 			// someone has deleted the description, we need to null it out
 			$pParamHash['sample_store']['description'] = '';
 		} else if( empty( $pParamHash['description'] ) ) {
@@ -209,7 +209,7 @@ class BitSample extends LibertyAttachable {
 	* Make sure sample is loaded and valid
 	**/
 	function isValid() {
-		return( !empty( $this->mSampleId ) );
+		return( $this->verifyId( $this->mSampleId ) );
 	}
 
 	/**
@@ -231,7 +231,7 @@ class BitSample extends LibertyAttachable {
 			// or a string
 			$mid = " WHERE UPPER( tc.`title` )like ? ";
 			$bindvars = array( '%' . strtoupper( $find ). '%' );
-		} else if( !empty( $pUserId ) ) {
+		} else if( @$this->verifyId( $pUserId ) ) {
 			// or a string
 			$mid = " WHERE tc.`creator_user_id` = ? ";
 			$bindvars = array( $pUserId );
@@ -265,7 +265,7 @@ class BitSample extends LibertyAttachable {
 	*/
 	function getDisplayUrl() {
 		$ret = NULL;
-		if( !empty( $this->mSampleId ) ) {
+		if( @$this->verifyId( $this->mSampleId ) ) {
 			$ret = SAMPLE_PKG_URL."index.php?sample_id=".$this->mSampleId;
 		}
 		return $ret;
