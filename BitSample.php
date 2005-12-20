@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.7 2005/12/20 18:34:03 squareing Exp $
-* $Id: BitSample.php,v 1.7 2005/12/20 18:34:03 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.8 2005/12/20 18:35:27 squareing Exp $
+* $Id: BitSample.php,v 1.8 2005/12/20 18:35:27 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.7 $ $Date: 2005/12/20 18:34:03 $ $Author: squareing $
+* @version $Revision: 1.8 $ $Date: 2005/12/20 18:35:27 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -102,7 +102,7 @@ class BitSample extends LibertyAttachable {
 				$result = $this->mDb->associateUpdate( $table, $pParamHash['sample_store'], $locId );
 			} else {
 				$pParamHash['sample_store']['content_id'] = $pParamHash['content_id'];
-				if( isset( $pParamHash['sample_id'] )&& is_numeric( $pParamHash['sample_id'] ) ) {
+				if( @$this->verifyId( $pParamHash['sample_id'] ) ) {
 					// if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
 					$pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
 				} else {
