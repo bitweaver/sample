@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.5 2006/01/26 12:29:31 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.6 2006/01/26 12:44:13 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -59,7 +59,7 @@
 				</div>
 
 				<div class="row submit">
-					<input type="submit" name="preview" value="{tr}preview{/tr}" /> 
+					<input type="submit" name="preview" value="{tr}Preview{/tr}" /> 
 					<input type="submit" name="save_sample" value="{tr}Save{/tr}" />
 				</div>
 			{/legend}
