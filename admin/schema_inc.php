@@ -1,5 +1,4 @@
 <?php
-
 $tables = array(
 	'bit_samples' => "
 		sample_id I4 AUTO PRIMARY,
@@ -13,7 +12,7 @@ global $gBitInstaller;
 $gBitInstaller->makePackageHomeable( SAMPLE_PKG_NAME );
 
 foreach( array_keys( $tables ) AS $tableName ) {
-    $gBitInstaller->registerSchemaTable( SAMPLE_PKG_NAME, $tableName, $tables[$tableName] );
+	$gBitInstaller->registerSchemaTable( SAMPLE_PKG_NAME, $tableName, $tables[$tableName] );
 }
 
 $gBitInstaller->registerPackageInfo( SAMPLE_PKG_NAME, array(

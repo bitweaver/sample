@@ -1,15 +1,6 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.4 2005/10/29 11:47:16 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.5 2006/01/26 12:29:31 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
-
-{* Check to see if there is an editing conflict *}
-{if $editpageconflict == 'y'}
-	<script language="javascript" type="text/javascript">
-		<!-- Hide Script
-			alert("{tr}This page is being edited by {$semUser}{/tr}. {tr}Proceed at your own peril{/tr}.")
-		//End Hide Script-->
-	</script>
-{/if}
 
 <div class="admin sample">
 	{if $preview}
@@ -22,7 +13,7 @@
 	<div class="header">
 		<h1>
 			{if $gContent->mInfo.sample_id}
-				{tr}{tr}Edit{/tr} {$gContent->mInfo.title}{if $gContent->mInfo.page_alias}&nbsp;( {$gContent->mInfo.page_alias} ){/if}{/tr}
+				{tr}{tr}Edit{/tr} {$gContent->mInfo.title}{/tr}
 			{else}
 				{tr}Create New Record{/tr}
 			{/if}

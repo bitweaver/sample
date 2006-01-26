@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.8 2005/12/20 18:35:27 squareing Exp $
-* $Id: BitSample.php,v 1.8 2005/12/20 18:35:27 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.9 2006/01/26 12:29:30 squareing Exp $
+* $Id: BitSample.php,v 1.9 2006/01/26 12:29:30 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.8 $ $Date: 2005/12/20 18:35:27 $ $Author: squareing $
+* @version $Revision: 1.9 $ $Date: 2006/01/26 12:29:30 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -74,6 +74,7 @@ class BitSample extends LibertyAttachable {
 				$this->mInfo['creator'] =( isset( $result->fields['creator_real_name'] )? $result->fields['creator_real_name'] : $result->fields['creator_user'] );
 				$this->mInfo['editor'] =( isset( $result->fields['modifier_real_name'] )? $result->fields['modifier_real_name'] : $result->fields['modifier_user'] );
 				$this->mInfo['display_url'] = $this->getDisplayUrl();
+				$this->mInfo['parsed_data'] = $this->parseData( $this->mInfo['data'], $this->mInfo['format_guid'] );
 
 				LibertyAttachable::load();
 			}
@@ -270,6 +271,5 @@ class BitSample extends LibertyAttachable {
 		}
 		return $ret;
 	}
-
 }
 ?>

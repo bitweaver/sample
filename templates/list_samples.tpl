@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.4 2005/09/17 18:39:03 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.5 2006/01/26 12:29:31 squareing Exp $ *}
 <div class="floaticon">{bithelp}</div>
 
 <div class="listing sample">
@@ -7,9 +7,11 @@
 	</div>
 
 	<div class="body">
+		{minifind sort_mode=$sort_mode}
+
 		{form id="checkform"}
-{strip}
 {* can't use strip for the entire page due to javascript later on *}
+{strip}
 			<input type="hidden" name="offset" value="{$control.offset|escape}" />
 			<input type="hidden" name="sort_mode" value="{$control.sort_mode|escape}" />
 
@@ -43,15 +45,15 @@
 						{/if}
 
 						{if $sample_list_title eq 'y'}
-							<td>{$list[changes].title}</td>
+							<td>{$list[changes].title|escape}</td>
 						{/if}
 
 						{if $sample_list_description eq 'y'}
-							<td>{$list[changes].description}</td>
+							<td>{$list[changes].description|escape}</td>
 						{/if}
 
 						{if $sample_list_data eq 'y'}
-							<td>{$list[changes].data}</td>
+							<td>{$list[changes].data|escape}</td>
 						{/if}
 
 						{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
@@ -85,17 +87,14 @@
 					</select>
 
 					<script type="text/javascript">//<![CDATA[
-					// Fake js to allow the use of the <noscript> tag (so non-js-users kenn still submit)
+						// Fake js to allow the use of the <noscript> tag (so non-js-users kenn still submit)
 					//]]></script>
 
-					<noscript>
-						<div><input type="submit" value="{tr}Submit{/tr}" /></div>
-					</noscript>
+					<noscript><div><input type="submit" value="{tr}Submit{/tr}" /></div></noscript>
 				</div>
 			{/if}
 		{/form}
-	</div><!-- end .body -->
 
-	{pagination_c}
-	{minifind sort_mode=$sort_mode}
+		{pagination}
+	</div><!-- end .body -->
 </div><!-- end .admin -->
