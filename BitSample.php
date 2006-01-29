@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.9 2006/01/26 12:29:30 squareing Exp $
-* $Id: BitSample.php,v 1.9 2006/01/26 12:29:30 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.10 2006/01/29 19:39:04 squareing Exp $
+* $Id: BitSample.php,v 1.10 2006/01/29 19:39:04 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.9 $ $Date: 2006/01/26 12:29:30 $ $Author: squareing $
+* @version $Revision: 1.10 $ $Date: 2006/01/29 19:39:04 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -217,25 +217,20 @@ class BitSample extends LibertyAttachable {
 	* This function generates a list of records from the tiki_content database for use in a list page
 	**/
 	function getList( &$pParamHash ) {
+		// this makes sure parameters used later on are set
 		LibertyContent::prepGetList( $pParamHash );
 
-		$find = $pParamHash['find'];
-		$sort_mode = $pParamHash['sort_mode'];
-		$max_records = $pParamHash['max_records'];
-		$offset = $pParamHash['offset'];
+		// this will set $find, $sort_mode, $max_records and $offset
+		extract( $pParamHash );
 
 		if( is_array( $find ) ) {
 			// you can use an array of pages
 			$mid = " WHERE tc.`title` IN( ".implode( ',',array_fill( 0,count( $find ),'?' ) )." )";
 			$bindvars = $find;
-		} else if( is_string( $find ) ) {
+		} elseif( is_string( $find ) ) {
 			// or a string
 			$mid = " WHERE UPPER( tc.`title` )like ? ";
 			$bindvars = array( '%' . strtoupper( $find ). '%' );
-		} else if( @$this->verifyId( $pUserId ) ) {
-			// or a string
-			$mid = " WHERE tc.`creator_user_id` = ? ";
-			$bindvars = array( $pUserId );
 		} else {
 			$mid = "";
 			$bindvars = array();
@@ -246,17 +241,16 @@ class BitSample extends LibertyAttachable {
 			".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
 			ORDER BY ".$this->mDb->convert_sortmode( $sort_mode );
 		$query_cant = "select count( * )from `".BIT_DB_PREFIX."tiki_content` tc ".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
-		$result = $this->mDb->query( $query,$bindvars,$max_records,$offset );
+		$result = $this->mDb->query( $query, $bindvars, $max_records, $offset );
 		$ret = array();
 		while( $res = $result->fetchRow() ) {
 			$ret[] = $res;
 		}
-		$pParamHash["data"] = $ret;
-
 		$pParamHash["cant"] = $this->mDb->getOne( $query_cant,$bindvars );
 
+		// add all pagination info to pParamHash
 		LibertyContent::postGetList( $pParamHash );
-		return $pParamHash;
+		return $ret;
 	}
 
 	/**

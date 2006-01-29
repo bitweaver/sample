@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.5 2006/01/26 12:29:31 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.6 2006/01/29 19:39:05 squareing Exp $ *}
 <div class="floaticon">{bithelp}</div>
 
 <div class="listing sample">
@@ -38,36 +38,36 @@
 					{/if}
 				</tr>
 
-				{section name=changes loop=$list}
+				{foreach item=sample from=$samplesList}
 					<tr class="{cycle values="even,odd"}">
-						{if $sample_list_sample_id eq 'y'}
-							<td><a href="{$smarty.const.SAMPLE_PKG_URL}index.php?sample_id={$list[changes].sample_id|escape:"url"}" title="{$list[changes].sample_id}">{$list[changes].sample_id|truncate:20:"...":true}</a></td>
+						{if $gBitSystem->isFeatureActive( 'sample_list_sample_id' )}
+							<td><a href="{$smarty.const.SAMPLE_PKG_URL}index.php?sample_id={$sample.sample_id|escape:"url"}" title="{$sample.sample_id}">{$sample.sample_id}</a></td>
 						{/if}
 
-						{if $sample_list_title eq 'y'}
-							<td>{$list[changes].title|escape}</td>
+						{if $gBitSystem->isFeatureActive( 'sample_list_title' )}
+							<td>{$sample.title|escape}</td>
 						{/if}
 
-						{if $sample_list_description eq 'y'}
-							<td>{$list[changes].description|escape}</td>
+						{if $gBitSystem->isFeatureActive( 'sample_list_description' )}
+							<td>{$sample.description|escape}</td>
 						{/if}
 
-						{if $sample_list_data eq 'y'}
-							<td>{$list[changes].data|escape}</td>
+						{if $gBitSystem->isFeatureActive( 'sample_list_data' )}
+							<td>{$sample.data|escape}</td>
 						{/if}
 
 						{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
 							<td class="actionicon">
-								{smartlink ititle="Edit" ifile="edit.php" ibiticon="liberty/edit" sample_id=$list[changes].sample_id}
-								<input type="checkbox" name="checked[]" title="{$list[changes].title}" value="{$list[changes].sample_id|escape}" />
+								{smartlink ititle="Edit" ifile="edit.php" ibiticon="liberty/edit" sample_id=$sample.sample_id}
+								<input type="checkbox" name="checked[]" title="{$sample.title}" value="{$sample.sample_id|escape}" />
 							</td>
 						{/if}
 					</tr>
-				{sectionelse}
+				{foreachelse}
 					<tr class="norecords"><td colspan="16">
 						{tr}No records found{/tr}
 					</td></tr>
-				{/section}
+				{/foreach}
 			</table>
 {/strip}
 

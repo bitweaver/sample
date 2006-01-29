@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.5 2006/01/26 12:44:12 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.6 2006/01/29 19:39:04 squareing Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -49,11 +49,13 @@ if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQU
 	}
 }
 
+// create new sample object
 $sample = new BitSample();
-$listsamples = $sample->getList( $_REQUEST );
+$samplesList = $sample->getList( $_REQUEST );
+$gBitSmarty->assign_by_ref( 'samplesList', $samplesList );
 
+// getList() has now placed all the pagination information in $_REQUEST['control']
 $gBitSmarty->assign_by_ref( 'listInfo', $_REQUEST["control"] );
-$gBitSmarty->assign_by_ref( 'list', $listsamples["data"] );
 
 // Display the template
 $gBitSystem->display( 'bitpackage:sample/list_samples.tpl', tra( 'Sample' ) );
