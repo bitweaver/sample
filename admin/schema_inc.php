@@ -1,6 +1,6 @@
 <?php
 $tables = array(
-	'bit_samples' => "
+	'samples' => "
 		sample_id I4 AUTO PRIMARY,
 		content_id I4 NOTNULL,
 		description C(160)
@@ -25,7 +25,7 @@ $gBitInstaller->registerPackageInfo( SAMPLE_PKG_NAME, array(
 
 // ### Indexes
 $indices = array(
-	'bit_samples_sample_id_idx' => array('table' => 'bit_samples', 'cols' => 'sample_id', 'opts' => NULL ),
+	'bit_samples_sample_id_idx' => array('table' => 'samples', 'cols' => 'sample_id', 'opts' => NULL ),
 );
 $gBitInstaller->registerSchemaIndexes( SAMPLE_PKG_NAME, $indices );
 

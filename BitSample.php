@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.10 2006/01/29 19:39:04 squareing Exp $
-* $Id: BitSample.php,v 1.10 2006/01/29 19:39:04 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.11 2006/02/02 21:16:58 spiderr Exp $
+* $Id: BitSample.php,v 1.11 2006/02/02 21:16:58 spiderr Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.10 $ $Date: 2006/01/29 19:39:04 $ $Author: squareing $
+* @version $Revision: 1.11 $ $Date: 2006/02/02 21:16:58 $ $Author: spiderr $
 * @class BitSample
 */
 
@@ -56,13 +56,13 @@ class BitSample extends LibertyAttachable {
 			// This is a significant performance optimization
 			$lookupColumn = $this->verifyId( $this->mSampleId ) ? 'sample_id' : 'content_id';
 			$lookupId = $this->verifyId( $this->mSampleId ) ? $this->mSampleId : $this->mContentId;
-			$query = "SELECT ts.*, tc.*, " .
+			$query = "SELECT ts.*, lc.*, " .
 			"uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name, " .
 			"uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name " .
-			"FROM `".BIT_DB_PREFIX."bit_samples` ts " .
-			"INNER JOIN `".BIT_DB_PREFIX."tiki_content` tc ON( tc.`content_id` = ts.`content_id` )" .
-			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = tc.`modifier_user_id` )" .
-			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = tc.`user_id` )" .
+			"FROM `".BIT_DB_PREFIX."samples` ts " .
+			"INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` )" .
+			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = lc.`modifier_user_id` )" .
+			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = lc.`user_id` )" .
 			"WHERE ts.`$lookupColumn`=?";
 			$result = $this->mDb->query( $query, array( $lookupId ) );
 
@@ -96,7 +96,7 @@ class BitSample extends LibertyAttachable {
 	**/
 	function store( &$pParamHash ) {
 		if( $this->verify( $pParamHash )&& LibertyAttachable::store( $pParamHash ) ) {
-			$table = BIT_DB_PREFIX."bit_samples";
+			$table = BIT_DB_PREFIX."samples";
 			$this->mDb->StartTrans();
 			if( $this->mSampleId ) {
 				$locId = array( "name" => "sample_id", "value" => $pParamHash['sample_id'] );
@@ -194,7 +194,7 @@ class BitSample extends LibertyAttachable {
 		$ret = FALSE;
 		if( $this->isValid() ) {
 			$this->mDb->StartTrans();
-			$query = "DELETE FROM `".BIT_DB_PREFIX."bit_samples` WHERE `content_id` = ?";
+			$query = "DELETE FROM `".BIT_DB_PREFIX."samples` WHERE `content_id` = ?";
 			$result = $this->mDb->query( $query, array( $this->mContentId ) );
 			if( LibertyAttachable::expunge() ) {
 				$ret = TRUE;
@@ -214,7 +214,7 @@ class BitSample extends LibertyAttachable {
 	}
 
 	/**
-	* This function generates a list of records from the tiki_content database for use in a list page
+	* This function generates a list of records from the liberty_content database for use in a list page
 	**/
 	function getList( &$pParamHash ) {
 		// this makes sure parameters used later on are set
@@ -225,22 +225,22 @@ class BitSample extends LibertyAttachable {
 
 		if( is_array( $find ) ) {
 			// you can use an array of pages
-			$mid = " WHERE tc.`title` IN( ".implode( ',',array_fill( 0,count( $find ),'?' ) )." )";
+			$mid = " WHERE lc.`title` IN( ".implode( ',',array_fill( 0,count( $find ),'?' ) )." )";
 			$bindvars = $find;
 		} elseif( is_string( $find ) ) {
 			// or a string
-			$mid = " WHERE UPPER( tc.`title` )like ? ";
+			$mid = " WHERE UPPER( lc.`title` )like ? ";
 			$bindvars = array( '%' . strtoupper( $find ). '%' );
 		} else {
 			$mid = "";
 			$bindvars = array();
 		}
 
-		$query = "SELECT ts.*, tc.`content_id`, tc.`title`, tc.`data`
-			FROM `".BIT_DB_PREFIX."bit_samples` ts INNER JOIN `".BIT_DB_PREFIX."tiki_content` tc ON( tc.`content_id` = ts.`content_id` )
-			".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
+		$query = "SELECT ts.*, lc.`content_id`, lc.`title`, lc.`data`
+			FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` )
+			".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." lc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
 			ORDER BY ".$this->mDb->convert_sortmode( $sort_mode );
-		$query_cant = "select count( * )from `".BIT_DB_PREFIX."tiki_content` tc ".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." tc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
+		$query_cant = "select count( * )from `".BIT_DB_PREFIX."liberty_content` lc ".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." lc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
 		$result = $this->mDb->query( $query, $bindvars, $max_records, $offset );
 		$ret = array();
 		while( $res = $result->fetchRow() ) {
