@@ -1,0 +1,33 @@
+Bitweaver SamplePackage package creator
+
+Based on the instructions from http://www.bitweaver.org/wiki/SamplePackage 
+the mkpackage script creates a basic outline of a package which uses the
+Liberty CMS.
+
+To use the script move (or copy) the file out out the sample directory and into where 
+ever you want to create the package.
+
+The package is created in the current working directory.
+
+The script will get the sample package if it is not already available.
+It will get the package in one of the following ways:-
+* Using wget, this is the default the sample package is downloaded from:
+	http://www.bitweaver.org/builds/packages/bitweaver_sample_package.tar.gz
+* Using Anonymous CVS, this gets you the latest version of the sample package
+	cvs -d:pserver:anonymous@cvs.sf.net:/cvsroot/bitweaver co sample
+* Using CVS, this option uses the current CVS settings
+	cvs co sample
+
+Usage: mkpackage [options] packagename
+Options:
+	-cvs	Get sample package from CVS if needed
+	-wget	Get sample package from the web if needed (via wget) (DEFAULT)
+	-dev    If getting the sample package from CVS get with current CVS defaults 
+	-anon	If getting the sample package from CVS get from anon CVS (DEFAULT)
+
+KNOWN ISSUES
+* Selecting Anonymous CVS when using a "ext" CVS tree causes a conflict, use -dev as well
+* If the sample package already exists in the current working directory it is used to make
+	the new package.
+* If using wget the tar file is left in the current working directory, it will be used if
+	another package is created, but can be safely deleted.
