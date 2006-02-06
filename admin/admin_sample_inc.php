@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.5 2005/10/24 19:47:32 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.6 2006/02/06 16:04:09 lsces Exp $
 // Copyright (c) 2005 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -36,7 +36,7 @@ $processForm = set_tab();
 if( $processForm ) {
 	$sampleToggles = array_merge( $formSampleLists );
 	foreach( $sampleToggles as $item => $data ) {
-		simple_set_toggle( $item );
+		simple_set_toggle( $item, 'samples' );
 	}
 
 }
