@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.7 2006/01/30 17:34:22 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.8 2006/02/06 22:56:48 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -32,15 +32,13 @@
 					{/forminput}
 				</div>
 
-				{if $gBitSystemPrefs.feature_wiki_description eq 'y'}
-					<div class="row">
-						{formlabel label="Description" for="description"}
-						{forminput}
-							<input size="60" type="text" name="description" id="description" value="{$gContent->mInfo.description|escape}" />
-							{formhelp note="Brief description of the page."}
-						{/forminput}
-					</div>
-				{/if}
+				<div class="row">
+					{formlabel label="Description" for="description"}
+					{forminput}
+						<input size="60" type="text" name="description" id="description" value="{$gContent->mInfo.description|escape}" />
+						{formhelp note="Brief description of the page."}
+					{/forminput}
+				</div>
 
 				{include file="bitpackage:liberty/edit_format.tpl"}
 
