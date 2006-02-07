@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.11 2006/02/02 21:16:58 spiderr Exp $
-* $Id: BitSample.php,v 1.11 2006/02/02 21:16:58 spiderr Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.12 2006/02/07 13:12:52 squareing Exp $
+* $Id: BitSample.php,v 1.12 2006/02/07 13:12:52 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.11 $ $Date: 2006/02/02 21:16:58 $ $Author: spiderr $
+* @version $Revision: 1.12 $ $Date: 2006/02/07 13:12:52 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -107,7 +107,7 @@ class BitSample extends LibertyAttachable {
 					// if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
 					$pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
 				} else {
-					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'bit_samples_sample_id_seq' );
+					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'samples_sample_id_seq' );
 				}
 				$this->mSampleId = $pParamHash['sample_store']['sample_id'];
 
