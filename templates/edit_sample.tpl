@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.8 2006/02/06 22:56:48 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.9 2006/02/07 13:15:22 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -23,19 +23,19 @@
 	<div class="body">
 		{form enctype="multipart/form-data" id="editsampleform"}
 			{legend legend="Edit/Create Sample Record"}
-				<input type="hidden" name="sample_id" value="{$gContent->mInfo.sample_id}" />
+				<input type="hidden" name="sample[sample_id]" value="{$gContent->mInfo.sample_id}" />
 
 				<div class="row">
 					{formlabel label="Title" for="title"}
 					{forminput}
-						<input type="text" size="60" maxlength="200" name="title" id="title" value="{if $preview}{$gContent->mInfo.title}{else}{$gContent->mInfo.title}{/if}" />
+						<input type="text" size="60" maxlength="200" name="sample[title]" id="title" value="{if $preview}{$gContent->mInfo.title}{else}{$gContent->mInfo.title}{/if}" />
 					{/forminput}
 				</div>
 
 				<div class="row">
 					{formlabel label="Description" for="description"}
 					{forminput}
-						<input size="60" type="text" name="description" id="description" value="{$gContent->mInfo.description|escape}" />
+						<input size="60" type="text" name="sample[description]" id="description" value="{$gContent->mInfo.description|escape}" />
 						{formhelp note="Brief description of the page."}
 					{/forminput}
 				</div>
@@ -52,7 +52,7 @@
 
 				<div class="row">
 					{forminput}
-						<textarea id="{$textarea_id}" name="edit" rows="{$smarty.cookies.rows|default:20}" cols="50">{$gContent->mInfo.data|escape:html}</textarea>
+						<textarea id="{$textarea_id}" name="sample[edit]" rows="{$smarty.cookies.rows|default:20}" cols="50">{$gContent->mInfo.data|escape:html}</textarea>
 					{/forminput}
 				</div>
 

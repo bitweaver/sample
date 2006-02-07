@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.4 2006/01/26 12:29:30 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.5 2006/02/07 13:15:22 squareing Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -39,7 +39,7 @@ if( !empty( $_REQUEST["save_sample"] ) ) {
 	// Check if all Request values are delivered, and if not, set them
 	// to avoid error messages. This can happen if some features are
 	// disabled
-	if( $gContent->store( $_REQUEST ) ) {
+	if( $gContent->store( $_REQUEST['sample'] ) ) {
 		header( "Location: ".$gContent->getDisplayUrl() );
 		die;
 	} else {
