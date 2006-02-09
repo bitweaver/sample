@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.12 2006/02/07 13:12:52 squareing Exp $
-* $Id: BitSample.php,v 1.12 2006/02/07 13:12:52 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.13 2006/02/09 13:16:09 lsces Exp $
+* $Id: BitSample.php,v 1.13 2006/02/09 13:16:09 lsces Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.12 $ $Date: 2006/02/07 13:12:52 $ $Author: squareing $
+* @version $Revision: 1.13 $ $Date: 2006/02/09 13:16:09 $ $Author: lsces $
 * @class BitSample
 */
 
@@ -217,6 +217,7 @@ class BitSample extends LibertyAttachable {
 	* This function generates a list of records from the liberty_content database for use in a list page
 	**/
 	function getList( &$pParamHash ) {
+		global $gBitUser;
 		// this makes sure parameters used later on are set
 		LibertyContent::prepGetList( $pParamHash );
 
@@ -235,6 +236,12 @@ class BitSample extends LibertyAttachable {
 			$mid = "";
 			$bindvars = array();
 		}
+
+		if( !$gBitSystem->isPackageActive( 'gatekeeper' ) ) {
+			$groups = array_keys($gBitUser->mGroups);
+			$mid .= ( empty( $mid ) ? " WHERE " : " AND " )." lc.`group_id` IN ( ".implode( ',',array_fill ( 0, count( $groups ),'?' ) )." )";
+			$bindvars = array_merge( $bindvars, $groups );
+		}		
 
 		$query = "SELECT ts.*, lc.`content_id`, lc.`title`, lc.`data`
 			FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` )
