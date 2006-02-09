@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.13 2006/02/09 13:16:09 lsces Exp $
-* $Id: BitSample.php,v 1.13 2006/02/09 13:16:09 lsces Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.14 2006/02/09 13:28:22 lsces Exp $
+* $Id: BitSample.php,v 1.14 2006/02/09 13:28:22 lsces Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.13 $ $Date: 2006/02/09 13:16:09 $ $Author: lsces $
+* @version $Revision: 1.14 $ $Date: 2006/02/09 13:28:22 $ $Author: lsces $
 * @class BitSample
 */
 
@@ -217,7 +217,7 @@ class BitSample extends LibertyAttachable {
 	* This function generates a list of records from the liberty_content database for use in a list page
 	**/
 	function getList( &$pParamHash ) {
-		global $gBitUser;
+		global $gBitSystem, $gBitUser;
 		// this makes sure parameters used later on are set
 		LibertyContent::prepGetList( $pParamHash );
 
