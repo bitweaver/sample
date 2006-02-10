@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.15 2006/02/10 11:35:27 lsces Exp $
-* $Id: BitSample.php,v 1.15 2006/02/10 11:35:27 lsces Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.16 2006/02/10 13:38:35 lsces Exp $
+* $Id: BitSample.php,v 1.16 2006/02/10 13:38:35 lsces Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.15 $ $Date: 2006/02/10 11:35:27 $ $Author: lsces $
+* @version $Revision: 1.16 $ $Date: 2006/02/10 13:38:35 $ $Author: lsces $
 * @class BitSample
 */
 
@@ -55,16 +55,20 @@ class BitSample extends LibertyAttachable {
 			// LibertyContent::load()assumes you have joined already, and will not execute any sql!
 			// This is a significant performance optimization
 			$lookupColumn = $this->verifyId( $this->mSampleId ) ? 'sample_id' : 'content_id';
-			$lookupId = $this->verifyId( $this->mSampleId ) ? $this->mSampleId : $this->mContentId;
-			$query = "SELECT ts.*, lc.*, " .
+			$bindVars = array(); $selectSql = ''; $joinSql = ''; $whereSql = '';
+			array_push( $bindVars, $lookupId = @BitBase::verifyId( $this->mSampleId )? $this->mSampleId : $this->mContentId );
+			$this->getServicesSql( 'content_load_function', $selectSql, $joinSql, $whereSql, $bindVars );
+
+			$query = "SELECT s.*, lc.*, " .
 			"uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name, " .
 			"uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name " .
-			"FROM `".BIT_DB_PREFIX."samples` ts " .
-			"INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` )" .
+			"$selectSql " .
+			"FROM `".BIT_DB_PREFIX."samples` s " .
+			"INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = s.`content_id` ) $joinSql" .
 			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = lc.`modifier_user_id` )" .
 			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = lc.`user_id` )" .
-			"WHERE ts.`$lookupColumn`=?";
-			$result = $this->mDb->query( $query, array( $lookupId ) );
+			"WHERE ts.`$lookupColumn`=? $whereSql";
+			$result = $this->mDb->query( $query, $bindVars );
 
 			if( $result && $result->numRows() ) {
 				$this->mInfo = $result->fields;
@@ -221,39 +225,39 @@ class BitSample extends LibertyAttachable {
 		// this makes sure parameters used later on are set
 		LibertyContent::prepGetList( $pParamHash );
 
+		$selectSql = '';
+		$joinSql = '';
+		$whereSql = '';
+		$bindVars = array();
+		array_push( $bindVars, $this->mContentTypeGuid );
+		$this->getServicesSql( 'content_list_function', $selectSql, $joinSql, $whereSql, $bindVars );
+
 		// this will set $find, $sort_mode, $max_records and $offset
 		extract( $pParamHash );
 
 		if( is_array( $find ) ) {
 			// you can use an array of pages
-			$mid = " WHERE lc.`title` IN( ".implode( ',',array_fill( 0,count( $find ),'?' ) )." )";
-			$bindvars = $find;
+			$whereSql .= " AND lc.`title` IN( ".implode( ',',array_fill( 0,count( $find ),'?' ) )." )";
+			$bindVars = array_merge ( $bindVars, $find );
 		} elseif( is_string( $find ) ) {
 			// or a string
-			$mid = " WHERE UPPER( lc.`title` )like ? ";
-			$bindvars = array( '%' . strtoupper( $find ). '%' );
-		} else {
-			$mid = "";
-			$bindvars = array();
+			$whereSql .= " AND UPPER( lc.`title` )like ? ";
+			$bindVars[] = '%' . strtoupper( $find ). '%';
 		}
-
-		if( !$gBitSystem->isPackageActive( 'gatekeeper' ) ) {
-			$groups = array_keys($gBitUser->mGroups);
-			$mid .= ( empty( $mid ) ? " WHERE " : " AND " )." lc.`group_id` IN ( ".implode( ',',array_fill ( 0, count( $groups ),'?' ) )." )";
-			$bindvars = array_merge( $bindvars, $groups );
-		}		
-
-		$query = "SELECT ts.*, lc.`content_id`, lc.`title`, lc.`data`
-			FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` )
-			".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." lc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'
+		
+		$query = "SELECT ts.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
+			FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` ) $joinSql
+			WHERE lc.`content_type_guid` = ? $whereSql
 			ORDER BY ".$this->mDb->convert_sortmode( $sort_mode );
-		$query_cant = "select count( * )from `".BIT_DB_PREFIX."liberty_content` lc ".( !empty( $mid )? $mid.' AND ' : ' WHERE ' )." lc.`content_type_guid` = '".BITSAMPLE_CONTENT_TYPE_GUID."'";
-		$result = $this->mDb->query( $query, $bindvars, $max_records, $offset );
+		$query_cant = "select count(*) 
+			FROM `".BIT_DB_PREFIX."liberty_content` lc $joinSql
+			WHERE lc.`content_type_guid` = ? $whereSql";
+		$result = $this->mDb->query( $query, $bindVars, $max_records, $offset );
 		$ret = array();
 		while( $res = $result->fetchRow() ) {
 			$ret[] = $res;
 		}
-		$pParamHash["cant"] = $this->mDb->getOne( $query_cant,$bindvars );
+		$pParamHash["cant"] = $this->mDb->getOne( $query_cant, $bindVars );
 
 		// add all pagination info to pParamHash
 		LibertyContent::postGetList( $pParamHash );
