@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.14 2006/02/09 13:28:22 lsces Exp $
-* $Id: BitSample.php,v 1.14 2006/02/09 13:28:22 lsces Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.15 2006/02/10 11:35:27 lsces Exp $
+* $Id: BitSample.php,v 1.15 2006/02/10 11:35:27 lsces Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.14 $ $Date: 2006/02/09 13:28:22 $ $Author: lsces $
+* @version $Revision: 1.15 $ $Date: 2006/02/10 11:35:27 $ $Author: lsces $
 * @class BitSample
 */
 
@@ -99,7 +99,7 @@ class BitSample extends LibertyAttachable {
 			$table = BIT_DB_PREFIX."samples";
 			$this->mDb->StartTrans();
 			if( $this->mSampleId ) {
-				$locId = array( "name" => "sample_id", "value" => $pParamHash['sample_id'] );
+				$locId = array( "sample_id" => $pParamHash['sample_id'] );
 				$result = $this->mDb->associateUpdate( $table, $pParamHash['sample_store'], $locId );
 			} else {
 				$pParamHash['sample_store']['content_id'] = $pParamHash['content_id'];
