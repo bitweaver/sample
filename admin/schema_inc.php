@@ -56,6 +56,6 @@ $gBitInstaller->registerPreferences( SAMPLE_PKG_NAME, array(
 	array( SAMPLE_PKG_NAME, 'sample_list_sample_id', 'y' ),
 	array( SAMPLE_PKG_NAME, 'sample_list_title', 'y' ),
 	array( SAMPLE_PKG_NAME, 'sample_list_description', 'y' ),
-	array( SAMPLE_PKG_NAME, 'feature_listSamples', 'y' ),
+	array( SAMPLE_PKG_NAME, 'sample_list_samples', 'y' ),
 ) );
 ?>
