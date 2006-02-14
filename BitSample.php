@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.16 2006/02/10 13:38:35 lsces Exp $
-* $Id: BitSample.php,v 1.16 2006/02/10 13:38:35 lsces Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.17 2006/02/14 21:53:25 squareing Exp $
+* $Id: BitSample.php,v 1.17 2006/02/14 21:53:25 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.16 $ $Date: 2006/02/10 13:38:35 $ $Author: lsces $
+* @version $Revision: 1.17 $ $Date: 2006/02/14 21:53:25 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -57,7 +57,7 @@ class BitSample extends LibertyAttachable {
 			$lookupColumn = $this->verifyId( $this->mSampleId ) ? 'sample_id' : 'content_id';
 			$bindVars = array(); $selectSql = ''; $joinSql = ''; $whereSql = '';
 			array_push( $bindVars, $lookupId = @BitBase::verifyId( $this->mSampleId )? $this->mSampleId : $this->mContentId );
-			$this->getServicesSql( 'content_load_function', $selectSql, $joinSql, $whereSql, $bindVars );
+			$this->getServicesSql( 'content_load_sql_function', $selectSql, $joinSql, $whereSql, $bindVars );
 
 			$query = "SELECT s.*, lc.*, " .
 			"uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name, " .
@@ -230,7 +230,7 @@ class BitSample extends LibertyAttachable {
 		$whereSql = '';
 		$bindVars = array();
 		array_push( $bindVars, $this->mContentTypeGuid );
-		$this->getServicesSql( 'content_list_function', $selectSql, $joinSql, $whereSql, $bindVars );
+		$this->getServicesSql( 'content_list_sql_function', $selectSql, $joinSql, $whereSql, $bindVars );
 
 		// this will set $find, $sort_mode, $max_records and $offset
 		extract( $pParamHash );
