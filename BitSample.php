@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.18 2006/02/16 13:48:12 squareing Exp $
-* $Id: BitSample.php,v 1.18 2006/02/16 13:48:12 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.19 2006/02/17 13:17:13 squareing Exp $
+* $Id: BitSample.php,v 1.19 2006/02/17 13:17:13 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.18 $ $Date: 2006/02/16 13:48:12 $ $Author: squareing $
+* @version $Revision: 1.19 $ $Date: 2006/02/17 13:17:13 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -55,8 +55,9 @@ class BitSample extends LibertyAttachable {
 			// LibertyContent::load()assumes you have joined already, and will not execute any sql!
 			// This is a significant performance optimization
 			$lookupColumn = $this->verifyId( $this->mSampleId ) ? 'sample_id' : 'content_id';
-			$bindVars = array(); $selectSql = ''; $joinSql = ''; $whereSql = '';
-			array_push( $bindVars, $lookupId = @BitBase::verifyId( $this->mSampleId )? $this->mSampleId : $this->mContentId );
+			$bindVars = array();
+			$selectSql = $joinSql = $whereSql = '';
+			array_push( $bindVars, $lookupId = @BitBase::verifyId( $this->mSampleId ) ? $this->mSampleId : $this->mContentId );
 			$this->getServicesSql( 'content_load_sql_function', $selectSql, $joinSql, $whereSql, $bindVars );
 
 			$query = "SELECT s.*, lc.*, " .
@@ -225,9 +226,7 @@ class BitSample extends LibertyAttachable {
 		// this makes sure parameters used later on are set
 		LibertyContent::prepGetList( $pParamHash );
 
-		$selectSql = '';
-		$joinSql = '';
-		$whereSql = '';
+		$selectSql = $joinSql = $whereSql = '';
 		$bindVars = array();
 		array_push( $bindVars, $this->mContentTypeGuid );
 		$this->getServicesSql( 'content_list_sql_function', $selectSql, $joinSql, $whereSql, $bindVars );
@@ -244,12 +243,12 @@ class BitSample extends LibertyAttachable {
 			$whereSql .= " AND UPPER( lc.`title` )like ? ";
 			$bindVars[] = '%' . strtoupper( $find ). '%';
 		}
-		
+
 		$query = "SELECT ts.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
 			FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql
 			ORDER BY ".$this->mDb->convert_sortmode( $sort_mode );
-		$query_cant = "select count(*) 
+		$query_cant = "select count(*)
 			FROM `".BIT_DB_PREFIX."liberty_content` lc $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql";
 		$result = $this->mDb->query( $query, $bindVars, $max_records, $offset );

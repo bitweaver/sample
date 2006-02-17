@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.9 2006/02/07 13:15:22 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.10 2006/02/17 13:17:13 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -22,45 +22,55 @@
 
 	<div class="body">
 		{form enctype="multipart/form-data" id="editsampleform"}
-			{legend legend="Edit/Create Sample Record"}
-				<input type="hidden" name="sample[sample_id]" value="{$gContent->mInfo.sample_id}" />
+			{/jstabs}
+				{/jstab}
+					{legend legend="Edit/Create Sample Record"}
+						<input type="hidden" name="sample[sample_id]" value="{$gContent->mInfo.sample_id}" />
 
-				<div class="row">
-					{formlabel label="Title" for="title"}
-					{forminput}
-						<input type="text" size="60" maxlength="200" name="sample[title]" id="title" value="{if $preview}{$gContent->mInfo.title}{else}{$gContent->mInfo.title}{/if}" />
-					{/forminput}
-				</div>
+						<div class="row">
+							{formlabel label="Title" for="title"}
+							{forminput}
+								<input type="text" size="60" maxlength="200" name="sample[title]" id="title" value="{if $preview}{$gContent->mInfo.title}{else}{$gContent->mInfo.title}{/if}" />
+							{/forminput}
+						</div>
 
-				<div class="row">
-					{formlabel label="Description" for="description"}
-					{forminput}
-						<input size="60" type="text" name="sample[description]" id="description" value="{$gContent->mInfo.description|escape}" />
-						{formhelp note="Brief description of the page."}
-					{/forminput}
-				</div>
+						<div class="row">
+							{formlabel label="Description" for="description"}
+							{forminput}
+								<input size="60" type="text" name="sample[description]" id="description" value="{$gContent->mInfo.description|escape}" />
+								{formhelp note="Brief description of the page."}
+							{/forminput}
+						</div>
 
-				{include file="bitpackage:liberty/edit_format.tpl"}
+						{include file="bitpackage:liberty/edit_format.tpl"}
 
-				{if $gBitSystemPrefs.package_smileys eq 'y'}
-					{include file="bitpackage:smileys/smileys_full.tpl"}
-				{/if}
+						{if $gBitSystemPrefs.package_smileys eq 'y'}
+							{include file="bitpackage:smileys/smileys_full.tpl"}
+						{/if}
 
-				{if $gBitSystemPrefs.package_quicktags eq 'y'}
-					{include file="bitpackage:quicktags/quicktags_full.tpl"}
-				{/if}
+						{if $gBitSystemPrefs.package_quicktags eq 'y'}
+							{include file="bitpackage:quicktags/quicktags_full.tpl"}
+						{/if}
 
-				<div class="row">
-					{forminput}
-						<textarea id="{$textarea_id}" name="sample[edit]" rows="{$smarty.cookies.rows|default:20}" cols="50">{$gContent->mInfo.data|escape:html}</textarea>
-					{/forminput}
-				</div>
+						<div class="row">
+							{forminput}
+								<textarea id="{$textarea_id}" name="sample[edit]" rows="{$smarty.cookies.rows|default:20}" cols="50">{$gContent->mInfo.data|escape:html}</textarea>
+							{/forminput}
+						</div>
 
-				<div class="row submit">
-					<input type="submit" name="preview" value="{tr}Preview{/tr}" /> 
-					<input type="submit" name="save_sample" value="{tr}Save{/tr}" />
-				</div>
-			{/legend}
+						{* any simple service edit options *}
+						{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_mini_tpl}
+
+						<div class="row submit">
+							<input type="submit" name="preview" value="{tr}Preview{/tr}" /> 
+							<input type="submit" name="save_sample" value="{tr}Save{/tr}" />
+						</div>
+					{/legend}
+				{/jstab}
+
+				{* any service edit template tabs *}
+				{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_tab_tpl}
+			{/jstabs}
 		{/form}
 	</div><!-- end .body -->
 </div><!-- end .sample -->
