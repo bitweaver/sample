@@ -1,4 +1,5 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.6 2006/01/29 19:39:05 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.7 2006/02/21 12:56:58 squareing Exp $ *}
+{strip}
 <div class="floaticon">{bithelp}</div>
 
 <div class="listing sample">
@@ -10,8 +11,6 @@
 		{minifind sort_mode=$sort_mode}
 
 		{form id="checkform"}
-{* can't use strip for the entire page due to javascript later on *}
-{strip}
 			<input type="hidden" name="offset" value="{$control.offset|escape}" />
 			<input type="hidden" name="sort_mode" value="{$control.sort_mode|escape}" />
 
@@ -69,15 +68,13 @@
 					</td></tr>
 				{/foreach}
 			</table>
-{/strip}
 
 			{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
 				<div style="text-align:right;">
-					<script type="text/javascript">//<![CDATA[
-						// check / uncheck all.
+					<script type="text/javascript">/* <![CDATA[ check / uncheck all */
 						document.write("<label for=\"switcher\">{tr}Select All{/tr}</label> ");
 						document.write("<input name=\"switcher\" id=\"switcher\" type=\"checkbox\" onclick=\"switchCheckboxes(this.form.id,'checked[]','switcher')\" /><br />");
-					//]]></script>
+					/* ]]> */</script>
 
 					<select name="submit_mult" onchange="this.form.submit();">
 						<option value="" selected="selected">{tr}with checked{/tr}:</option>
@@ -85,10 +82,6 @@
 							<option value="remove_samples">{tr}remove{/tr}</option>
 						{/if}
 					</select>
-
-					<script type="text/javascript">//<![CDATA[
-						// Fake js to allow the use of the <noscript> tag (so non-js-users kenn still submit)
-					//]]></script>
 
 					<noscript><div><input type="submit" value="{tr}Submit{/tr}" /></div></noscript>
 				</div>
@@ -98,3 +91,4 @@
 		{pagination}
 	</div><!-- end .body -->
 </div><!-- end .admin -->
+{/strip}
