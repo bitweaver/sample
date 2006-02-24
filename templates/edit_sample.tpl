@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.10 2006/02/17 13:17:13 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.11 2006/02/24 17:58:51 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -22,8 +22,8 @@
 
 	<div class="body">
 		{form enctype="multipart/form-data" id="editsampleform"}
-			{/jstabs}
-				{/jstab}
+			{jstabs}
+				{jstab}
 					{legend legend="Edit/Create Sample Record"}
 						<input type="hidden" name="sample[sample_id]" value="{$gContent->mInfo.sample_id}" />
 
