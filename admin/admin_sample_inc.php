@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.7 2006/02/08 21:51:15 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.8 2006/03/01 20:16:26 spiderr Exp $
 // Copyright (c) 2005 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // is this used?
 //if (isset($_REQUEST["sampleset"]) && isset($_REQUEST["homeSample"])) {
-//	$gBitSystem->storePreference("home_sample", $_REQUEST["homeSample"]);
+//	$gBitSystem->storeConfig("home_sample", $_REQUEST["homeSample"]);
 //	$gBitSmarty->assign('home_sample', $_REQUEST["homeSample"]);
 //}
 
