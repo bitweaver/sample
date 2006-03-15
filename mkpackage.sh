@@ -5,7 +5,7 @@ echo
 if [ $# == 0 ]
 then
 	echo "Usage: mkpackage [options] packagename
-Options:
+	Options:
 	-cvs	Get sample package from CVS if needed
 	-wget	Get sample package from the web if needed (via wget) (DEFAULT)
 	-dev    If getting the sample package from CVS get with current CVS defaults 
@@ -18,7 +18,7 @@ CVS_A=1
 args=`echo "$@" | perl -ne "print lc"`
 for p in $args
 do
-	if [ $p == "-cvs" ] 
+	if [ $p == "-cvs" ]
 	then
 		CVS=1
 	elif [ $p == "-wget" ]
@@ -48,7 +48,7 @@ ucase=`echo "$package" | perl -ne "print uc"`
 ccase=`echo "$lcase" | perl -n -e "print ucfirst"`
 
 # Check that the package doesn't already exist
-if [ -d $lcase ] 
+if [ -d $lcase ]
 then
 	echo "A package called $ccase already exists. Folder $lcase exists"
 	exit
@@ -60,11 +60,11 @@ then
 	# state how the sample package will be fetched
 	if [ $CVS ]
 	then
-	        echo "Sample Package will be fetched by CVS"
+		echo "Sample Package will be fetched by CVS"
 	else
-	        echo "Sample Package will be fetched by wget"
+		echo "Sample Package will be fetched by wget"
 	fi
-			
+
 	# get the sample package from cvs
 	if [ $CVS ]
 	then
@@ -76,20 +76,20 @@ then
 			cvs co sample
 		fi
 		# The CVS version has a few too many directories so tidy up
-                echo CVS cleaning
-	        rm -rf sample/CVS
-	        mv sample/sample/* sample/
-                rm -rf sample/sample/
+		echo CVS cleaning
+		rm -rf sample/CVS
+		mv sample/sample/* sample/
+		rm -rf sample/sample/
 	else
 		# has the sample package already been downloaded
-		if [ ! -f bitweaver_sample_package.tar.gz ]
+		if [ ! -f bitweaver_bit_sample_package.tar.gz ]
 		then
-			wget http://www.bitweaver.org/builds/packages/bitweaver_R1_sample_package.tar.gz
+			wget http://www.bitweaver.org/builds/packages/R1/bitweaver_bit_sample_package.tar.gz
 		fi
 		# if we have the compressed sample package, decompress it
-		if [ -f bitweaver_sample_package.tar.gz ]
+		if [ -f bitweaver_bit_sample_package.tar.gz ]
 		then
-			tar -zxvf bitweaver_sample_package.tar.gz
+			tar -zxvf bitweaver_bit_sample_package.tar.gz
 		fi
 	fi
 fi
@@ -103,20 +103,20 @@ fi
 
 # if we have the sample package
 if [ -d sample ]
-then	
+then
 	# From http://www.bitweaver.org/wiki/SamplePackage
 	echo Rename Sample
 	mv sample $lcase; cd $lcase
 	echo Case sensitive Search and Replace all occureneces of 'sample' with your package name
-	find . -name "*" -type f -exec perl -i -wpe "s/sample/$lcase/g" {} \; 
-	find . -name "*" -type f -exec perl -i -wpe "s/SAMPLE/$ucase/g" {} \; 
+	find . -name "*" -type f -exec perl -i -wpe "s/sample/$lcase/g" {} \;
+	find . -name "*" -type f -exec perl -i -wpe "s/SAMPLE/$ucase/g" {} \;
 	find . -name "*" -type f -exec perl -i -wpe "s/Sample/$ccase/g" {} \;
 	echo Rename all the files containing 'sample' with your package name
 	find . -name "*sample*" -exec rename sample $lcase {} \;
 	find . -name "*Sample*" -exec rename Sample $ccase {} \;
 	cd ..
 
-	echo 
+	echo
 	echo A basic outline of your package $ccase has been created
 	echo
 else
