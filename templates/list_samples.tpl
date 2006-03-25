@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.7 2006/02/21 12:56:58 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.8 2006/03/25 20:52:53 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -58,7 +58,7 @@
 						{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
 							<td class="actionicon">
 								{smartlink ititle="Edit" ifile="edit.php" ibiticon="liberty/edit" sample_id=$sample.sample_id}
-								<input type="checkbox" name="checked[]" title="{$sample.title}" value="{$sample.sample_id|escape}" />
+								<input type="checkbox" name="checked[]" title="{$sample.title|escape}" value="{$sample.sample_id}" />
 							</td>
 						{/if}
 					</tr>

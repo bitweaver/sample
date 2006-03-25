@@ -1,10 +1,10 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.12 2006/03/01 20:16:27 spiderr Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.13 2006/03/25 20:52:53 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
 <div class="admin sample">
 	{if $preview}
-		<h2>Preview {$gContent->mInfo.title}</h2>
+		<h2>Preview {$gContent->mInfo.title|escape}</h2>
 		<div class="preview">
 			{include file="bitpackage:sample/sample_display.tpl" page=`$gContent->mInfo.sample_id`}
 		</div>
@@ -13,7 +13,7 @@
 	<div class="header">
 		<h1>
 			{if $gContent->mInfo.sample_id}
-				{tr}{tr}Edit{/tr} {$gContent->mInfo.title}{/tr}
+				{tr}{tr}Edit{/tr} {$gContent->mInfo.title|escape}{/tr}
 			{else}
 				{tr}Create New Record{/tr}
 			{/if}
@@ -30,7 +30,7 @@
 						<div class="row">
 							{formlabel label="Title" for="title"}
 							{forminput}
-								<input type="text" size="60" maxlength="200" name="sample[title]" id="title" value="{if $preview}{$gContent->mInfo.title}{else}{$gContent->mInfo.title}{/if}" />
+								<input type="text" size="60" maxlength="200" name="sample[title]" id="title" value="{$gContent->mInfo.title|escape}" />
 							{/forminput}
 						</div>
 

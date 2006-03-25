@@ -9,7 +9,7 @@
 					{forminput}
 						<select name="homeSample" id="homeSample">
 							{section name=ix loop=$samples}
-								<option value="{$samples[ix].sample_id|escape}" {if $samples[ix].sample_id eq $home_sample}selected="selected"{/if}>{$samples[ix].title|truncate:20:"...":true}</option>
+								<option value="{$samples[ix].sample_id|escape}" {if $samples[ix].sample_id eq $home_sample}selected="selected"{/if}>{$samples[ix].title|escape|truncate:20:"...":true}</option>
 							{sectionelse}
 								<option>{tr}No records found{/tr}</option>
 							{/section}
