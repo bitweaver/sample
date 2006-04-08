@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.13 2006/03/25 20:52:53 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.14 2006/04/08 07:54:41 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -54,7 +54,7 @@
 
 						<div class="row">
 							{forminput}
-								<textarea id="{$textarea_id}" name="sample[edit]" rows="{$smarty.cookies.rows|default:20}" cols="50">{$gContent->mInfo.data|escape:html}</textarea>
+								<textarea {spellchecker} id="{$textarea_id}" name="sample[edit]" rows="{$smarty.cookies.rows|default:20}" cols="50">{$gContent->mInfo.data|escape:html}</textarea>
 							{/forminput}
 						</div>
 
