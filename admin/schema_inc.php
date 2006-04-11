@@ -43,11 +43,11 @@ $gBitInstaller->registerSchemaDefault( SAMPLE_PKG_NAME, array(
 
 // ### Default UserPermissions
 $gBitInstaller->registerUserPermissions( SAMPLE_PKG_NAME, array(
-	array( 'bit_p_admin_sample', 'Can admin sample', 'admin', SAMPLE_PKG_NAME ),
-	array( 'bit_p_create_sample', 'Can create a sample', 'registered', SAMPLE_PKG_NAME ),
-	array( 'bit_p_edit_sample', 'Can edit any sample', 'editors', SAMPLE_PKG_NAME ),
-	array( 'bit_p_read_sample', 'Can read sample', 'basic',  SAMPLE_PKG_NAME ),
-	array( 'bit_p_remove_sample', 'Can delete sample', 'admin',  SAMPLE_PKG_NAME ),
+	array( 'p_sample_admin', 'Can admin sample', 'admin', SAMPLE_PKG_NAME ),
+	array( 'p_sample_create', 'Can create a sample', 'registered', SAMPLE_PKG_NAME ),
+	array( 'p_sample_edit', 'Can edit any sample', 'editors', SAMPLE_PKG_NAME ),
+	array( 'p_sample_read', 'Can read sample', 'basic',  SAMPLE_PKG_NAME ),
+	array( 'p_sample_remove', 'Can delete sample', 'admin',  SAMPLE_PKG_NAME ),
 ) );
 
 // ### Default Preferences

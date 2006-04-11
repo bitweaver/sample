@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.8 2006/03/25 20:52:53 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.9 2006/04/11 13:08:28 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -32,7 +32,7 @@
 						<th>{smartlink ititle="Text" isort=data offset=$control.offset}</th>
 					{/if}
 
-					{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
+					{if $gBitUser->hasPermission( 'p_sample_remove' )}
 						<th>{tr}Actions{/tr}</th>
 					{/if}
 				</tr>
@@ -55,7 +55,7 @@
 							<td>{$sample.data|escape}</td>
 						{/if}
 
-						{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
+						{if $gBitUser->hasPermission( 'p_sample_remove' )}
 							<td class="actionicon">
 								{smartlink ititle="Edit" ifile="edit.php" ibiticon="liberty/edit" sample_id=$sample.sample_id}
 								<input type="checkbox" name="checked[]" title="{$sample.title|escape}" value="{$sample.sample_id}" />
@@ -69,7 +69,7 @@
 				{/foreach}
 			</table>
 
-			{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
+			{if $gBitUser->hasPermission( 'p_sample_remove' )}
 				<div style="text-align:right;">
 					<script type="text/javascript">/* <![CDATA[ check / uncheck all */
 						document.write("<label for=\"switcher\">{tr}Select All{/tr}</label> ");
@@ -78,7 +78,7 @@
 
 					<select name="submit_mult" onchange="this.form.submit();">
 						<option value="" selected="selected">{tr}with checked{/tr}:</option>
-						{if $gBitUser->hasPermission( 'bit_p_remove_sample' )}
+						{if $gBitUser->hasPermission( 'p_sample_remove' )}
 							<option value="remove_samples">{tr}remove{/tr}</option>
 						{/if}
 					</select>

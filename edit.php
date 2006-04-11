@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.5 2006/02/07 13:15:22 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.6 2006/04/11 13:08:28 squareing Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -11,7 +11,7 @@ require_once( '../bit_setup_inc.php' );
 $gBitSystem->verifyPackage( 'sample' );
 
 // Now check permissions to access this page
-$gBitSystem->verifyPermission('bit_p_edit_sample' );
+$gBitSystem->verifyPermission('p_sample_edit' );
 
 require_once(SAMPLE_PKG_PATH.'lookup_sample_inc.php' );
 

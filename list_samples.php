@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.7 2006/02/06 18:43:08 lsces Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.8 2006/04/11 13:08:28 squareing Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -11,7 +11,7 @@ require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 $gBitSystem->verifyPackage( 'sample' );
 
 // Now check permissions to access this page
-$gBitSystem->verifyPermission( 'bit_p_read_sample' );
+$gBitSystem->verifyPermission( 'p_sample_read' );
 
 /* mass-remove:
 	the checkboxes are sent as the array $_REQUEST["checked[]"], values are the wiki-PageNames,
@@ -25,7 +25,7 @@ $gBitSystem->verifyPermission( 'bit_p_read_sample' );
 if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQUEST["submit_mult"] == "remove_samples" ) {
 
 	// Now check permissions to remove the selected samples
-	$gBitSystem->verifyPermission( 'bit_p_remove_sample' );
+	$gBitSystem->verifyPermission( 'p_sample_remove' );
 
 	if( !empty( $_REQUEST['cancel'] ) ) {
 		// user cancelled - just continue on, doing nothing
