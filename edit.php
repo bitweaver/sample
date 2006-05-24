@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.6 2006/04/11 13:08:28 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.7 2006/05/24 18:11:39 hash9 Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -15,16 +15,21 @@ $gBitSystem->verifyPermission('p_sample_edit' );
 
 require_once(SAMPLE_PKG_PATH.'lookup_sample_inc.php' );
 
-if( isset( $_REQUEST["title"] ) ) {
-	$gContent->mInfo["title"] = $_REQUEST["title"];
+if( isset( $_REQUEST['sample']["title"] ) ) {
+	$gContent->mInfo["title"] = $_REQUEST['sample']["title"];
 }
 
-if( isset( $_REQUEST["description"] ) ) {
-	$gContent->mInfo["description"] = $_REQUEST["description"];
+if( isset( $_REQUEST['sample']["description"] ) ) {
+	$gContent->mInfo["description"] = $_REQUEST['sample']["description"];
 }
 
-if( isset( $_REQUEST["data"] ) ) {
-	$gContent->mInfo["data"] = $_REQUEST["data"];
+if( isset( $_REQUEST["format_guid"] ) ) {
+	$gContent->mInfo['format_guid'] = $_REQUEST["format_guid"];
+}
+
+if( isset( $_REQUEST['sample']["edit"] ) ) {
+	$gContent->mInfo["data"] = $_REQUEST['sample']["edit"];
+	$gContent->mInfo['parsed_data'] = $gContent->parseData();
 }
 
 // If we are in preview mode then preview it!
