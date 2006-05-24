@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.19 2006/02/17 13:17:13 squareing Exp $
-* $Id: BitSample.php,v 1.19 2006/02/17 13:17:13 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.20 2006/05/24 10:37:20 sylvieg Exp $
+* $Id: BitSample.php,v 1.20 2006/05/24 10:37:20 sylvieg Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.19 $ $Date: 2006/02/17 13:17:13 $ $Author: squareing $
+* @version $Revision: 1.20 $ $Date: 2006/05/24 10:37:20 $ $Author: sylvieg $
 * @class BitSample
 */
 
@@ -68,7 +68,7 @@ class BitSample extends LibertyAttachable {
 			"INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = s.`content_id` ) $joinSql" .
 			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = lc.`modifier_user_id` )" .
 			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = lc.`user_id` )" .
-			"WHERE ts.`$lookupColumn`=? $whereSql";
+			"WHERE s.`$lookupColumn`=? $whereSql";
 			$result = $this->mDb->query( $query, $bindVars );
 
 			if( $result && $result->numRows() ) {
