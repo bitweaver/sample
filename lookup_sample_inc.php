@@ -13,6 +13,9 @@ if( empty( $gContent ) || !is_object( $gContent ) || !$gContent->isValid() ) {
 	} elseif( @BitBase::verifyId( $_REQUEST['content_id'] ) ) {
 		$gContent = new BitSample( NULL, $_REQUEST['content_id'] );
 
+	} elseif (@BitBase::verifyId( $_REQUEST['sample']['sample_id'] ) ) {
+		$gContent = new BitSample( $_REQUEST['sample']['sample_id'] );
+
 	// otherwise create new object
 	} else {
 		$gContent = new BitSample();
