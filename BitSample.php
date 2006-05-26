@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.22 2006/05/25 16:50:59 sylvieg Exp $
-* $Id: BitSample.php,v 1.22 2006/05/25 16:50:59 sylvieg Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.23 2006/05/26 14:52:10 sylvieg Exp $
+* $Id: BitSample.php,v 1.23 2006/05/26 14:52:10 sylvieg Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.22 $ $Date: 2006/05/25 16:50:59 $ $Author: sylvieg $
+* @version $Revision: 1.23 $ $Date: 2006/05/26 14:52:10 $ $Author: sylvieg $
 * @class BitSample
 */
 
@@ -249,7 +249,7 @@ class BitSample extends LibertyAttachable {
 			WHERE lc.`content_type_guid` = ? $whereSql
 			ORDER BY ".$this->mDb->convert_sortmode( $sort_mode );
 		$query_cant = "select count(*)
-			FROM `".BIT_DB_PREFIX."liberty_content` lc $joinSql
+				FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql";
 		$result = $this->mDb->query( $query, $bindVars, $max_records, $offset );
 		$ret = array();
