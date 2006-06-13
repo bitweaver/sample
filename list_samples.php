@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.9 2006/06/13 18:37:38 sylvieg Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.10 2006/06/13 19:22:36 sylvieg Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -34,7 +34,7 @@ if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQU
 		$formHash['submit_mult'] = 'remove_samples';
 		foreach( $_REQUEST["checked"] as $del ) {
 			$tmpPage = new BitSample( $del);
-			if ( $tmpPage->load() ) {
+			if ( $tmpPage->load() && !empty( $tmpPage->mInfo['title'] )) {
 				$info = $tmpPage->mInfo['title'];
 			} else {
 				$info = $del;
