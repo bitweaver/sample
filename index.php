@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.4 2006/04/11 13:08:28 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.5 2006/06/13 16:13:10 sylvieg Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -18,6 +18,8 @@ if( !isset( $_REQUEST['sample_id'] ) ) {
 }
 
 require_once( SAMPLE_PKG_PATH.'lookup_sample_inc.php' );
+
+$gContent->addHit();
 
 // Display the template
 $gBitSystem->display( 'bitpackage:sample/sample_display.tpl', tra( 'Sample' ) );
