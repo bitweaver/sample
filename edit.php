@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.7 2006/05/24 18:11:39 hash9 Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.8 2006/07/01 04:02:13 nickpalmer Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -35,6 +35,10 @@ if( isset( $_REQUEST['sample']["edit"] ) ) {
 // If we are in preview mode then preview it!
 if( isset( $_REQUEST["preview"] ) ) {
 	$gBitSmarty->assign('preview', 'y');
+	$gContent->invokeServices('content_preview_function');
+}
+else {
+  	$gContent->invokeServices( 'content_edit_function' );
 }
 
 // Pro
