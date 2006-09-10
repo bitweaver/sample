@@ -9,8 +9,6 @@ $tables = array(
 
 global $gBitInstaller;
 
-$gBitInstaller->makePackageHomeable( SAMPLE_PKG_NAME );
-
 foreach( array_keys( $tables ) AS $tableName ) {
 	$gBitInstaller->registerSchemaTable( SAMPLE_PKG_NAME, $tableName, $tables[$tableName] );
 }
