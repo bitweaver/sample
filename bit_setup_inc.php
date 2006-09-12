@@ -9,6 +9,11 @@ $registerHash = array(
 $gBitSystem->registerPackage( $registerHash );
 
 if( $gBitSystem->isPackageActive( 'sample' ) ) {
-	$gBitSystem->registerAppMenu( SAMPLE_PKG_NAME, ucfirst( SAMPLE_PKG_DIR ), SAMPLE_PKG_URL.'index.php', 'bitpackage:sample/menu_sample.tpl', SAMPLE_PKG_NAME );
+	$menuHash = array(
+		'package_name'  => SAMPLE_PKG_NAME,
+		'index_url'     => SAMPLE_PKG_URL.'index.php',
+		'menu_template' => 'bitpackage:sample/menu_sample.tpl',
+	);
+	$gBitSystem->registerAppMenu( $menuHash );
 }
 ?>
