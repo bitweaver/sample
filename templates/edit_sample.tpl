@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.14 2006/04/08 07:54:41 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.15 2007/04/20 13:57:24 nickpalmer Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -42,21 +42,7 @@
 							{/forminput}
 						</div>
 
-						{include file="bitpackage:liberty/edit_format.tpl"}
-
-						{if $gBitSystem->isFeatureActive('package_smileys')}
-							{include file="bitpackage:smileys/smileys_full.tpl"}
-						{/if}
-
-						{if $gBitSystem->isFeatureActive('package_quicktags')}
-							{include file="bitpackage:quicktags/quicktags_full.tpl"}
-						{/if}
-
-						<div class="row">
-							{forminput}
-								<textarea {spellchecker} id="{$textarea_id}" name="sample[edit]" rows="{$smarty.cookies.rows|default:20}" cols="50">{$gContent->mInfo.data|escape:html}</textarea>
-							{/forminput}
-						</div>
+						{textarea name="sample[edit]"}{/textarea}
 
 						{* any simple service edit options *}
 						{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_mini_tpl}

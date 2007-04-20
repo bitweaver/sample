@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.8 2006/07/01 04:02:13 nickpalmer Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/edit.php,v 1.9 2007/04/20 13:57:23 nickpalmer Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -55,14 +55,6 @@ if( !empty( $_REQUEST["save_sample"] ) ) {
 		$gBitSmarty->assign_by_ref( 'errors', $gContent->mErrors );
 	}
 }
-
-// Configure quicktags list
-if( $gBitSystem->isPackageActive( 'quicktags' ) ) {
-	include_once( QUICKTAGS_PKG_PATH.'quicktags_inc.php' );
-}
-
-// WYSIWYG and Quicktag variable
-$gBitSmarty->assign( 'textarea_id', 'editsample' );
 
 // Display the template
 $gBitSystem->display( 'bitpackage:sample/edit_sample.tpl', tra('Sample') );
