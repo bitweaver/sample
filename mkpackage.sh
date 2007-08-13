@@ -71,7 +71,7 @@ then
 		# use the correct CVS command depending on whether we should use anon CVS
 		if [ $CVS_A ]
 		then
-			cvs -d:pserver:anonymous@cvs.sf.net:/cvsroot/bitweaver co sample
+			cvs -d:pserver:anonymous@bitweaver.cvs.sf.net:/cvsroot/bitweaver co sample
 		else
 			cvs co sample
 		fi
