@@ -1,7 +1,7 @@
 <?php
 $tables = array(
 	'samples' => "
-		sample_id I4 AUTO PRIMARY,
+		sample_id I4 PRIMARY,
 		content_id I4 NOTNULL,
 		description C(160)
 	",
@@ -24,13 +24,11 @@ $indices = array(
 );
 $gBitInstaller->registerSchemaIndexes( SAMPLE_PKG_NAME, $indices );
 
-/*// ### Sequences
+// ### Sequences
 $sequences = array (
-	'bit_sample_id_seq' => array( 'start' => 1 )
+	'sample_sample_id_seq'      => array( 'start' => 1 )
 );
 $gBitInstaller->registerSchemaSequences( SAMPLE_PKG_NAME, $sequences );
-*/
-
 
 $gBitInstaller->registerSchemaDefault( SAMPLE_PKG_NAME, array(
 	//      "INSERT INTO `".BIT_DB_PREFIX."bit_sample_types` (`type`) VALUES ('Sample')",
