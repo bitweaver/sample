@@ -39,7 +39,7 @@ $gBitInstaller->registerUserPermissions( SAMPLE_PKG_NAME, array(
 	array( 'p_sample_admin', 'Can admin sample', 'admin', SAMPLE_PKG_NAME ),
 	array( 'p_sample_create', 'Can create a sample', 'registered', SAMPLE_PKG_NAME ),
 	array( 'p_sample_edit', 'Can edit any sample', 'editors', SAMPLE_PKG_NAME ),
-	array( 'p_sample_read', 'Can read sample', 'basic',  SAMPLE_PKG_NAME ),
+	array( 'p_sample_view', 'Can view sample', 'basic',  SAMPLE_PKG_NAME ),
 	array( 'p_sample_remove', 'Can delete sample', 'admin',  SAMPLE_PKG_NAME ),
 ) );
 

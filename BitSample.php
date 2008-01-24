@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.23 2006/05/26 14:52:10 sylvieg Exp $
-* $Id: BitSample.php,v 1.23 2006/05/26 14:52:10 sylvieg Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.24 2008/01/24 17:52:06 wjames5 Exp $
+* $Id: BitSample.php,v 1.24 2008/01/24 17:52:06 wjames5 Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.23 $ $Date: 2006/05/26 14:52:10 $ $Author: sylvieg $
+* @version $Revision: 1.24 $ $Date: 2008/01/24 17:52:06 $ $Author: wjames5 $
 * @class BitSample
 */
 
@@ -44,6 +44,10 @@ class BitSample extends LibertyAttachable {
 			'handler_file' => 'BitSample.php',
 			'maintainer_url' => 'http://www.bitweaver.org'
 		) );
+		// Permission setup
+		$this->mViewContentPerm  = 'p_sample_view';
+		$this->mEditContentPerm  = 'p_sample_edit';
+		$this->mAdminContentPerm = 'p_sample_admin';
 	}
 
 	/**
