@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.10 2006/06/13 19:22:36 sylvieg Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.11 2008/01/24 19:43:11 nickpalmer Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -11,7 +11,7 @@ require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 $gBitSystem->verifyPackage( 'sample' );
 
 // Now check permissions to access this page
-$gBitSystem->verifyPermission( 'p_sample_read' );
+$gBitSystem->verifyPermission( 'p_sample_view' );
 
 /* mass-remove:
 	the checkboxes are sent as the array $_REQUEST["checked[]"], values are the wiki-PageNames,
