@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.25 2008/01/24 20:32:56 nickpalmer Exp $
-* $Id: BitSample.php,v 1.25 2008/01/24 20:32:56 nickpalmer Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.26 2008/06/09 16:00:19 squareing Exp $
+* $Id: BitSample.php,v 1.26 2008/06/09 16:00:19 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.25 $ $Date: 2008/01/24 20:32:56 $ $Author: nickpalmer $
+* @version $Revision: 1.26 $ $Date: 2008/06/09 16:00:19 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -116,7 +116,7 @@ class BitSample extends LibertyAttachable {
 					// if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
 					$pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
 				} else {
-					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'samples_sample_id_seq' );
+					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'sample_sample_id_seq' );
 				}
 				$this->mSampleId = $pParamHash['sample_store']['sample_id'];
 
@@ -251,7 +251,7 @@ class BitSample extends LibertyAttachable {
 		$query = "SELECT ts.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
 			FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql
-			ORDER BY ".$this->mDb->convert_sortmode( $sort_mode );
+			ORDER BY ".$this->mDb->convertSortmode( $sort_mode );
 		$query_cant = "select count(*)
 				FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql";
