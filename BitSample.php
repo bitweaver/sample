@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.26 2008/06/09 16:00:19 squareing Exp $
-* $Id: BitSample.php,v 1.26 2008/06/09 16:00:19 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.27 2008/06/13 13:48:29 squareing Exp $
+* $Id: BitSample.php,v 1.27 2008/06/13 13:48:29 squareing Exp $
 */
 
 /**
@@ -10,18 +10,18 @@
 *
 * @date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.26 $ $Date: 2008/06/09 16:00:19 $ $Author: squareing $
+* @version $Revision: 1.27 $ $Date: 2008/06/13 13:48:29 $ $Author: squareing $
 * @class BitSample
 */
 
-require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
+require_once( LIBERTY_PKG_PATH.'LibertyMime.php' );
 
 /**
 * This is used to uniquely identify the object
 */
 define( 'BITSAMPLE_CONTENT_TYPE_GUID', 'bitsample' );
 
-class BitSample extends LibertyAttachable {
+class BitSample extends LibertyMime {
 	/**
 	* Primary key for our mythical Sample class object & table
 	* @public
@@ -32,7 +32,7 @@ class BitSample extends LibertyAttachable {
 	* During initialisation, be sure to call our base constructors
 	**/
 	function BitSample( $pSampleId=NULL, $pContentId=NULL ) {
-		LibertyAttachable::LibertyAttachable();
+		LibertyMime::LibertyMime();
 		$this->mSampleId = $pSampleId;
 		$this->mContentId = $pContentId;
 		$this->mContentTypeGuid = BITSAMPLE_CONTENT_TYPE_GUID;
@@ -85,7 +85,7 @@ class BitSample extends LibertyAttachable {
 				$this->mInfo['display_url'] = $this->getDisplayUrl();
 				$this->mInfo['parsed_data'] = $this->parseData();
 
-				LibertyAttachable::load();
+				LibertyMime::load();
 			}
 		}
 		return( count( $this->mInfo ) );
@@ -105,7 +105,7 @@ class BitSample extends LibertyAttachable {
 	**/
 	function store( &$pParamHash ) {
 		$this->mDb->StartTrans();
-		if( $this->verify( $pParamHash )&& LibertyAttachable::store( $pParamHash ) ) {
+		if( $this->verify( $pParamHash )&& LibertyMime::store( $pParamHash ) ) {
 			$table = BIT_DB_PREFIX."samples";
 			if( $this->mSampleId ) {
 				$locId = array( "sample_id" => $pParamHash['sample_id'] );
@@ -205,7 +205,7 @@ class BitSample extends LibertyAttachable {
 			$this->mDb->StartTrans();
 			$query = "DELETE FROM `".BIT_DB_PREFIX."samples` WHERE `content_id` = ?";
 			$result = $this->mDb->query( $query, array( $this->mContentId ) );
-			if( LibertyAttachable::expunge() ) {
+			if( LibertyMime::expunge() ) {
 				$ret = TRUE;
 				$this->mDb->CompleteTrans();
 			} else {
