@@ -1,16 +1,16 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.27 2008/06/13 13:48:29 squareing Exp $
-* $Id: BitSample.php,v 1.27 2008/06/13 13:48:29 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.28 2008/06/19 09:34:24 lsces Exp $
+* $Id: BitSample.php,v 1.28 2008/06/19 09:34:24 lsces Exp $
 */
 
 /**
 * Sample class to illustrate best practices when creating a new bitweaver package that
 * builds on core bitweaver functionality, such as the Liberty CMS engine
 *
-* @date created 2004/8/15
+* date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.27 $ $Date: 2008/06/13 13:48:29 $ $Author: squareing $
+* @version $Revision: 1.28 $ $Date: 2008/06/19 09:34:24 $ $Author: lsces $
 * @class BitSample
 */
 
