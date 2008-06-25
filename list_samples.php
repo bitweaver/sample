@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.11 2008/01/24 19:43:11 nickpalmer Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.12 2008/06/25 22:21:23 spiderr Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -64,6 +64,6 @@ $gBitSmarty->assign_by_ref( 'samplesList', $samplesList );
 $gBitSmarty->assign_by_ref( 'listInfo', $_REQUEST['listInfo'] );
 
 // Display the template
-$gBitSystem->display( 'bitpackage:sample/list_samples.tpl', tra( 'Sample' ) );
+$gBitSystem->display( 'bitpackage:sample/list_samples.tpl', tra( 'Sample' ) , array( 'display_mode' => 'list' ));
 
 ?>

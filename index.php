@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.6 2008/01/24 17:52:06 wjames5 Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.7 2008/06/25 22:21:23 spiderr Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -30,5 +30,5 @@ $gContent->verifyViewPermission();
 $gContent->addHit();
 
 // Display the template
-$gBitSystem->display( 'bitpackage:sample/sample_display.tpl', tra( 'Sample' ) );
+$gBitSystem->display( 'bitpackage:sample/sample_display.tpl', tra( 'Sample' ) , array( 'display_mode' => 'display' ));
 ?>
