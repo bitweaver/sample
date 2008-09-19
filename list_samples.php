@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.12 2008/06/25 22:21:23 spiderr Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.13 2008/09/19 01:34:38 laetzer Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -41,7 +41,12 @@ if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQU
 			}
 			$formHash['input'][] = '<input type="hidden" name="checked[]" value="'.$del.'"/>'.$info;
 		}
-		$gBitSystem->confirmDialog( $formHash, array( 'warning' => 'Are you sure you want to delete '.count( $_REQUEST["checked"] ).' samples?', 'error' => 'This cannot be undone!' ) );
+		$gBitSystem->confirmDialog( $formHash, 
+			array(
+				'warning' => tra('Are you sure you want to delete ').count( $_REQUEST["checked"] ).' samples?',
+				'error' => tra('This cannot be undone!')
+			)
+		);
 	} else {
 		foreach( $_REQUEST["checked"] as $deleteId ) {
 			$tmpPage = new BitSample( $deleteId );
