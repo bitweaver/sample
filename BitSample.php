@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.28 2008/06/19 09:34:24 lsces Exp $
-* $Id: BitSample.php,v 1.28 2008/06/19 09:34:24 lsces Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.29 2008/10/03 17:20:16 wjames5 Exp $
+* $Id: BitSample.php,v 1.29 2008/10/03 17:20:16 wjames5 Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.28 $ $Date: 2008/06/19 09:34:24 $ $Author: lsces $
+* @version $Revision: 1.29 $ $Date: 2008/10/03 17:20:16 $ $Author: wjames5 $
 * @class BitSample
 */
 
@@ -46,6 +46,7 @@ class BitSample extends LibertyMime {
 		) );
 		// Permission setup
 		$this->mViewContentPerm  = 'p_sample_view';
+		$this->mCreateContentPerm  = 'p_sample_create';
 		$this->mEditContentPerm  = 'p_sample_edit';
 		$this->mAdminContentPerm = 'p_sample_admin';
 	}

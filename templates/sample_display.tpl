@@ -2,7 +2,7 @@
 <div class="display sample">
 	<div class="floaticon">
 		{if $print_page ne 'y'}
-			{if $gBitUser->hasPermission( 'p_sample_edit' )}
+			{if $gContent->hasEditPermission()}
 				<a title="{tr}Edit this sample{/tr}" href="{$smarty.const.SAMPLE_PKG_URL}edit.php?sample_id={$gContent->mInfo.sample_id}">{biticon ipackage="icons" iname="accessories-text-editor" iexplain="Edit Sample"}</a>
 			{/if}
 			{if $gBitUser->hasPermission( 'p_sample_remove' )}
