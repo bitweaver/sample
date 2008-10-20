@@ -2,10 +2,10 @@
 <div class="display sample">
 	<div class="floaticon">
 		{if $print_page ne 'y'}
-			{if $gContent->hasEditPermission()}
+			{if $gContent->hasUpdatePermission()}
 				<a title="{tr}Edit this sample{/tr}" href="{$smarty.const.SAMPLE_PKG_URL}edit.php?sample_id={$gContent->mInfo.sample_id}">{biticon ipackage="icons" iname="accessories-text-editor" iexplain="Edit Sample"}</a>
 			{/if}
-			{if $gBitUser->hasPermission( 'p_sample_remove' )}
+			{if $gBitUser->hasPermission( 'p_sample_update' )}
 				<a title="{tr}Remove this sample{/tr}" href="{$smarty.const.SAMPLE_PKG_URL}remove_sample.php?sample_id={$gContent->mInfo.sample_id}">{biticon ipackage="icons" iname="edit-delete" iexplain="Remove Sample"}</a>
 			{/if}
 		{/if}<!-- end print_page -->

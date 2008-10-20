@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.13 2008/09/19 01:34:38 laetzer Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.14 2008/10/20 21:40:11 spiderr Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -25,7 +25,7 @@ $gBitSystem->verifyPermission( 'p_sample_view' );
 if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQUEST["submit_mult"] == "remove_samples" ) {
 
 	// Now check permissions to remove the selected samples
-	$gBitSystem->verifyPermission( 'p_sample_remove' );
+	$gBitSystem->verifyPermission( 'p_sample_update' );
 
 	if( !empty( $_REQUEST['cancel'] ) ) {
 		// user cancelled - just continue on, doing nothing
