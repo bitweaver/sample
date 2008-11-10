@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.30 2008/10/20 21:40:11 spiderr Exp $
-* $Id: BitSample.php,v 1.30 2008/10/20 21:40:11 spiderr Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.31 2008/11/10 15:56:16 squareing Exp $
+* $Id: BitSample.php,v 1.31 2008/11/10 15:56:16 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.30 $ $Date: 2008/10/20 21:40:11 $ $Author: spiderr $
+* @version $Revision: 1.31 $ $Date: 2008/11/10 15:56:16 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -23,38 +23,47 @@ define( 'BITSAMPLE_CONTENT_TYPE_GUID', 'bitsample' );
 
 class BitSample extends LibertyMime {
 	/**
-	* Primary key for our mythical Sample class object & table
-	* @public
-	*/
+	 * mSampleId Primary key for our mythical Sample class object & table
+	 * 
+	 * @var array
+	 * @access public
+	 */
 	var $mSampleId;
 
 	/**
-	* During initialisation, be sure to call our base constructors
-	**/
+	 * BitSample During initialisation, be sure to call our base constructors
+	 * 
+	 * @param numeric $pSampleId 
+	 * @param numeric $pContentId 
+	 * @access public
+	 * @return void
+	 */
 	function BitSample( $pSampleId=NULL, $pContentId=NULL ) {
 		LibertyMime::LibertyMime();
 		$this->mSampleId = $pSampleId;
 		$this->mContentId = $pContentId;
 		$this->mContentTypeGuid = BITSAMPLE_CONTENT_TYPE_GUID;
 		$this->registerContentType( BITSAMPLE_CONTENT_TYPE_GUID, array(
-			'content_type_guid' => BITSAMPLE_CONTENT_TYPE_GUID,
+			'content_type_guid'   => BITSAMPLE_CONTENT_TYPE_GUID,
 			'content_description' => 'Sample package with bare essentials',
-			'handler_class' => 'BitSample',
-			'handler_package' => 'sample',
-			'handler_file' => 'BitSample.php',
-			'maintainer_url' => 'http://www.bitweaver.org'
-		) );
+			'handler_class'       => 'BitSample',
+			'handler_package'     => 'sample',
+			'handler_file'        => 'BitSample.php',
+			'maintainer_url'      => 'http://www.bitweaver.org'
+		));
 		// Permission setup
-		$this->mViewContentPerm  = 'p_sample_view';
-		$this->mCreateContentPerm  = 'p_sample_create';
-		$this->mUpdateContentPerm  = 'p_sample_update';
-		$this->mAdminContentPerm = 'p_sample_admin';
+		$this->mViewContentPerm   = 'p_sample_view';
+		$this->mCreateContentPerm = 'p_sample_create';
+		$this->mUpdateContentPerm = 'p_sample_update';
+		$this->mAdminContentPerm  = 'p_sample_admin';
 	}
 
 	/**
-	* Load the data from the database
-	* @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
-	**/
+	 * load Load the data from the database
+	 * 
+	 * @access public
+	 * @return boolean TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
 	function load() {
 		if( $this->verifyId( $this->mSampleId ) || $this->verifyId( $this->mContentId ) ) {
 			// LibertyContent::load()assumes you have joined already, and will not execute any sql!
@@ -65,15 +74,16 @@ class BitSample extends LibertyMime {
 			array_push( $bindVars, $lookupId = @BitBase::verifyId( $this->mSampleId ) ? $this->mSampleId : $this->mContentId );
 			$this->getServicesSql( 'content_load_sql_function', $selectSql, $joinSql, $whereSql, $bindVars );
 
-			$query = "SELECT s.*, lc.*, " .
-			"uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name, " .
-			"uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name " .
-			"$selectSql " .
-			"FROM `".BIT_DB_PREFIX."samples` s " .
-			"INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = s.`content_id` ) $joinSql" .
-			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = lc.`modifier_user_id` )" .
-			"LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = lc.`user_id` )" .
-			"WHERE s.`$lookupColumn`=? $whereSql";
+			$query = "
+				SELECT smpl.*, lc.*,
+				uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name,
+				uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name
+				$selectSql
+				FROM `".BIT_DB_PREFIX."samples` smpl
+					INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
+					LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = lc.`modifier_user_id` )
+					LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = lc.`user_id` )
+				WHERE smpl.`$lookupColumn`=? $whereSql";
 			$result = $this->mDb->query( $query, $bindVars );
 
 			if( $result && $result->numRows() ) {
@@ -81,8 +91,9 @@ class BitSample extends LibertyMime {
 				$this->mContentId = $result->fields['content_id'];
 				$this->mSampleId = $result->fields['sample_id'];
 
-				$this->mInfo['creator'] =( isset( $result->fields['creator_real_name'] )? $result->fields['creator_real_name'] : $result->fields['creator_user'] );
-				$this->mInfo['editor'] =( isset( $result->fields['modifier_real_name'] )? $result->fields['modifier_real_name'] : $result->fields['modifier_user'] );
+				$this->mInfo['creator'] = ( !empty( $result->fields['creator_real_name'] ) ? $result->fields['creator_real_name'] : $result->fields['creator_user'] );
+				$this->mInfo['editor'] = ( !empty( $result->fields['modifier_real_name'] ) ? $result->fields['modifier_real_name'] : $result->fields['modifier_user'] );
+				$this->mInfo['display_name'] = BitUser::getTitle( $this->mInfo );
 				$this->mInfo['display_url'] = $this->getDisplayUrl();
 				$this->mInfo['parsed_data'] = $this->parseData();
 
@@ -93,17 +104,15 @@ class BitSample extends LibertyMime {
 	}
 
 	/**
-	* Any method named Store inherently implies data will be written to the database
-	* @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
-	* This is the ONLY method that should be called in order to store( create or update )an sample!
-	* It is very smart and will figure out what to do for you. It should be considered a black box.
-	*
-	* @param array pParams hash of values that will be used to store the page
-	*
-	* @return bool TRUE on success, FALSE if store could not occur. If FALSE, $this->mErrors will have reason why
-	*
-	* @access public
-	**/
+	 * store Any method named Store inherently implies data will be written to the database
+	 * @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
+	 * This is the ONLY method that should be called in order to store( create or update )an sample!
+	 * It is very smart and will figure out what to do for you. It should be considered a black box.
+	 * 
+	 * @param array $pParamHash hash of values that will be used to store the page
+	 * @access public
+	 * @return boolean TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
 	function store( &$pParamHash ) {
 		$this->mDb->StartTrans();
 		if( $this->verify( $pParamHash )&& LibertyMime::store( $pParamHash ) ) {
@@ -132,17 +141,15 @@ class BitSample extends LibertyMime {
 	}
 
 	/**
-	* Make sure the data is safe to store
-	* @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
-	* This function is responsible for data integrity and validation before any operations are performed with the $pParamHash
-	* NOTE: This is a PRIVATE METHOD!!!! do not call outside this class, under penalty of death!
-	*
-	* @param array pParams reference to hash of values that will be used to store the page, they will be modified where necessary
-	*
-	* @return bool TRUE on success, FALSE if verify failed. If FALSE, $this->mErrors will have reason why
-	*
-	* @access private
-	**/
+	 * verify Make sure the data is safe to store
+	 * @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
+	 * This function is responsible for data integrity and validation before any operations are performed with the $pParamHash
+	 * NOTE: This is a PRIVATE METHOD!!!! do not call outside this class, under penalty of death!
+	 * 
+	 * @param array $pParamHash reference to hash of values that will be used to store the page, they will be modified where necessary
+	 * @access private
+	 * @return boolean TRUE on success, FALSE on failure - $this->mErrors will contain reason for failure
+	 */
 	function verify( &$pParamHash ) {
 		global $gBitUser, $gBitSystem;
 
@@ -198,8 +205,11 @@ class BitSample extends LibertyMime {
 	}
 
 	/**
-	* This function removes a sample entry
-	**/
+	 * expunge 
+	 * 
+	 * @access public
+	 * @return boolean TRUE on success, FALSE on failure
+	 */
 	function expunge() {
 		$ret = FALSE;
 		if( $this->isValid() ) {
@@ -217,15 +227,22 @@ class BitSample extends LibertyMime {
 	}
 
 	/**
-	* Make sure sample is loaded and valid
-	**/
+	 * isValid Make sure sample is loaded and valid
+	 * 
+	 * @access public
+	 * @return boolean TRUE on success, FALSE on failure
+	 */
 	function isValid() {
-		return( $this->verifyId( $this->mSampleId ) );
+		return( @BitBase::verifyId( $this->mSampleId ) && @BitBase::verifyId( $this->mContentId ));
 	}
 
 	/**
-	* This function generates a list of records from the liberty_content database for use in a list page
-	**/
+	 * getList This function generates a list of records from the liberty_content database for use in a list page
+	 * 
+	 * @param array $pParamHash 
+	 * @access public
+	 * @return array List of samples
+	 */
 	function getList( &$pParamHash ) {
 		global $gBitSystem, $gBitUser;
 		// this makes sure parameters used later on are set
@@ -249,12 +266,16 @@ class BitSample extends LibertyMime {
 			$bindVars[] = '%' . strtoupper( $find ). '%';
 		}
 
-		$query = "SELECT ts.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
-			FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` ) $joinSql
+		$query = "
+			SELECT smpl.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
+			FROM `".BIT_DB_PREFIX."samples` smpl
+				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql
 			ORDER BY ".$this->mDb->convertSortmode( $sort_mode );
-		$query_cant = "select count(*)
-				FROM `".BIT_DB_PREFIX."samples` ts INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = ts.`content_id` ) $joinSql
+		$query_cant = "
+			SELECT COUNT(*)
+			FROM `".BIT_DB_PREFIX."samples` smpl
+				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql";
 		$result = $this->mDb->query( $query, $bindVars, $max_records, $offset );
 		$ret = array();
@@ -269,14 +290,20 @@ class BitSample extends LibertyMime {
 	}
 
 	/**
-	* Generates the URL to the sample page
-	* @param pExistsHash the hash that was returned by LibertyContent::pageExists
-	* @return the link to display the page.
-	*/
+	 * getDisplayUrl Generates the URL to the sample page
+	 * 
+	 * @access public
+	 * @return string URL to the sample page
+	 */
 	function getDisplayUrl() {
+		global $gBitSystem;
 		$ret = NULL;
-		if( @$this->verifyId( $this->mSampleId ) ) {
-			$ret = SAMPLE_PKG_URL."index.php?sample_id=".$this->mSampleId;
+		if( @$this->isValid() ) {
+			if( $gBitSystem->isFeatureActive( 'pretty_urls' ) || $gBitSystem->isFeatureActive( 'pretty_urls_extended' )) {
+				$ret = SAMPLE_PKG_URL.$this->mSampleId;
+			} else {
+				$ret = SAMPLE_PKG_URL."index.php?sample_id=".$this->mSampleId;
+			}
 		}
 		return $ret;
 	}

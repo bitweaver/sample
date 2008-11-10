@@ -1,9 +1,9 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.15 2007/04/20 13:57:24 nickpalmer Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.16 2008/11/10 15:56:16 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
 <div class="admin sample">
-	{if $preview}
+	{if $smarty.request.preview}
 		<h2>Preview {$gContent->mInfo.title|escape}</h2>
 		<div class="preview">
 			{include file="bitpackage:sample/sample_display.tpl" page=`$gContent->mInfo.sample_id`}
@@ -13,7 +13,7 @@
 	<div class="header">
 		<h1>
 			{if $gContent->mInfo.sample_id}
-				{tr}{tr}Edit{/tr} {$gContent->mInfo.title|escape}{/tr}
+				{tr}Edit {$gContent->mInfo.title|escape}{/tr}
 			{else}
 				{tr}Create New Record{/tr}
 			{/if}

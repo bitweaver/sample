@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.14 2008/10/20 21:40:11 spiderr Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.15 2008/11/10 15:56:16 squareing Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -11,17 +11,9 @@ require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 $gBitSystem->verifyPackage( 'sample' );
 
 // Now check permissions to access this page
-$gBitSystem->verifyPermission( 'p_sample_view' );
+$gBitSystem->verifyViewPermission();
 
-/* mass-remove:
-	the checkboxes are sent as the array $_REQUEST["checked[]"], values are the wiki-PageNames,
-	e.g. $_REQUEST["checked"][3]="HomePage"
-	$_REQUEST["submit_mult"] holds the value of the "with selected do..."-option list
-	we look if any page's checkbox is on and if remove_samples is selected.
-	then we check permission to delete samples.
-	if so, we call histlib's method remove_all_versions for all the checked samples.
-*/
-
+// Remove samples if we don't want them anymore
 if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQUEST["submit_mult"] == "remove_samples" ) {
 
 	// Now check permissions to remove the selected samples
@@ -60,7 +52,7 @@ if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQU
 	}
 }
 
-// create new sample object
+// Create new sample object
 $sample = new BitSample();
 $samplesList = $sample->getList( $_REQUEST );
 $gBitSmarty->assign_by_ref( 'samplesList', $samplesList );
