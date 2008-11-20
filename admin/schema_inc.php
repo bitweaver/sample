@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.15 2008/11/20 09:00:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.16 2008/11/20 17:14:17 squareing Exp $
  * @package sample
  */
 $tables = array(
@@ -24,12 +24,12 @@ $gBitInstaller->registerPackageInfo( SAMPLE_PKG_NAME, array(
 
 // Indexes
 $gBitInstaller->registerSchemaIndexes( SAMPLE_PKG_NAME, array(
-	'bit_samples_sample_id_idx' => array( 'table' => 'samples', 'cols' => 'sample_id', 'opts' => NULL ),
+	'samples_sample_id_idx' => array( 'table' => 'samples', 'cols' => 'sample_id', 'opts' => NULL ),
 ));
 
 // Sequences
 $gBitInstaller->registerSchemaSequences( SAMPLE_PKG_NAME, array (
-	'sample_sample_id_seq'      => array( 'start' => 1 )
+	'samples_sample_id_seq' => array( 'start' => 1 )
 ));
 
 /* // Schema defaults

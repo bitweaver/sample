@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.31 2008/11/10 15:56:16 squareing Exp $
-* $Id: BitSample.php,v 1.31 2008/11/10 15:56:16 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.32 2008/11/20 17:14:17 squareing Exp $
+* $Id: BitSample.php,v 1.32 2008/11/20 17:14:17 squareing Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.31 $ $Date: 2008/11/10 15:56:16 $ $Author: squareing $
+* @version $Revision: 1.32 $ $Date: 2008/11/20 17:14:17 $ $Author: squareing $
 * @class BitSample
 */
 
@@ -126,7 +126,7 @@ class BitSample extends LibertyMime {
 					// if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
 					$pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
 				} else {
-					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'sample_sample_id_seq' );
+					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'samples_sample_id_seq' );
 				}
 				$this->mSampleId = $pParamHash['sample_store']['sample_id'];
 
