@@ -1,4 +1,8 @@
 <?php
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.15 2008/11/20 09:00:53 squareing Exp $
+ * @package sample
+ */
 $tables = array(
 	'samples' => "
 		sample_id I4 PRIMARY,
