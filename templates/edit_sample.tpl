@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.18 2009/01/19 19:56:29 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.19 2009/01/19 19:57:42 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -48,14 +48,14 @@
 						{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_mini_tpl"}
 
 						<div class="row submit">
-							<input type="submit" name="preview" value="{tr}Preview{/tr}" /> 
+							<input type="submit" name="preview" value="{tr}Preview{/tr}" />
 							<input type="submit" name="save_sample" value="{tr}Save{/tr}" />
 						</div>
 					{/legend}
 				{/jstab}
 
 				{* any service edit template tabs *}
-				{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_tab_tpl}
+				{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_tab_tpl"}
 			{/jstabs}
 		{/form}
 	</div><!-- end .body -->
