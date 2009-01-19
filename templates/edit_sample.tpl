@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.16 2008/11/10 15:56:16 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.17 2009/01/19 17:03:08 dansut Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -23,21 +23,21 @@
 	<div class="body">
 		{form enctype="multipart/form-data" id="editsampleform"}
 			{jstabs}
-				{jstab}
-					{legend legend="Edit/Create Sample Record"}
+				{jstab title="Record"}
+					{legend legend="Sample Record"}
 						<input type="hidden" name="sample[sample_id]" value="{$gContent->mInfo.sample_id}" />
 
 						<div class="row">
 							{formlabel label="Title" for="title"}
 							{forminput}
-								<input type="text" size="60" maxlength="200" name="sample[title]" id="title" value="{$gContent->mInfo.title|escape}" />
+								<input type="text" size="50" name="sample[title]" id="title" value="{$gContent->mInfo.title|escape}" />
 							{/forminput}
 						</div>
 
 						<div class="row">
 							{formlabel label="Description" for="description"}
 							{forminput}
-								<input size="60" type="text" name="sample[description]" id="description" value="{$gContent->mInfo.description|escape}" />
+								<input type="text" size="50" maxlength="160" name="sample[description]" id="description" value="{$gContent->mInfo.description|escape}" />
 								{formhelp note="Brief description of the page."}
 							{/forminput}
 						</div>
