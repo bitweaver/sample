@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.17 2009/01/19 17:03:08 dansut Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.18 2009/01/19 19:56:29 squareing Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -45,7 +45,7 @@
 						{textarea name="sample[edit]"}{/textarea}
 
 						{* any simple service edit options *}
-						{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_mini_tpl}
+						{include file="bitpackage:liberty/edit_services_inc.tpl serviceFile=content_edit_mini_tpl"}
 
 						<div class="row submit">
 							<input type="submit" name="preview" value="{tr}Preview{/tr}" /> 
