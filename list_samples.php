@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.15 2008/11/10 15:56:16 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.16 2009/01/19 17:06:37 dansut Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -10,8 +10,11 @@ require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 // Is package installed and enabled
 $gBitSystem->verifyPackage( 'sample' );
 
+// Look up the content
+require_once( SAMPLE_PKG_PATH.'lookup_sample_inc.php' );
+
 // Now check permissions to access this page
-$gBitSystem->verifyViewPermission();
+$gContent->verifyViewPermission();
 
 // Remove samples if we don't want them anymore
 if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQUEST["submit_mult"] == "remove_samples" ) {
