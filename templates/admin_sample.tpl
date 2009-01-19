@@ -1,11 +1,11 @@
 {strip}
 {form}
 	{jstabs}
-		{jstab title="Home Sample"}
-			{legend legend="Home Sample"}
+		{jstab title="Sample Settings"}
+			{legend legend="Sample Settings"}
 				<input type="hidden" name="page" value="{$page}" />
 				<div class="row">
-					{formlabel label="Home Sample (main sample)" for="homeSample"}
+					{formlabel label="Home Sample" for="homeSample"}
 					{forminput}
 						<select name="home_sample" id="homeSample">
 							{section name=ix loop=$samples}
@@ -14,11 +14,8 @@
 								<option>{tr}No records found{/tr}</option>
 							{/section}
 						</select>
+						{formhelp note="This is the sample that will be displayed when viewing the sample homepage"}
 					{/forminput}
-				</div>
-
-				<div class="row submit">
-					<input type="submit" name="homeTabSubmit" value="{tr}Change preferences{/tr}" />
 				</div>
 			{/legend}
 		{/jstab}
@@ -35,12 +32,12 @@
 						{/forminput}
 					</div>
 				{/foreach}
-
-				<div class="row submit">
-					<input type="submit" name="listTabSubmit" value="{tr}Change preferences{/tr}" />
-				</div>
 			{/legend}
 		{/jstab}
+
+		<div class="row submit">
+			<input type="submit" name="sample_settings" value="{tr}Change preferences{/tr}" />
+		</div>
 	{/jstabs}
 {/form}
 {/strip}

@@ -1,8 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.9 2009/01/19 19:27:20 dansut Exp $
-// Copyright (c) 2005 bitweaver Sample
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.10 2009/01/19 19:59:46 squareing Exp $
 
 require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 
@@ -26,15 +23,18 @@ $formSampleLists = array(
 );
 $gBitSmarty->assign( 'formSampleLists',$formSampleLists );
 
-$processForm = set_tab();
-
-if( $processForm ) {
+// Process the form if we've made some changes
+if( !empty( $_REQUEST['sample_settings'] )) {
 	$sampleToggles = array_merge( $formSampleLists );
 	foreach( $sampleToggles as $item => $data ) {
-		simple_set_toggle( $item, 'samples' );
+		simple_set_toggle( $item, SAMPLE_PKG_NAME );
 	}
-	simple_set_toggle( 'home_sample', 'samples' );
+	simple_set_int( 'home_sample', SAMPLE_PKG_NAME );
 }
+
+// The list of samples is used to pick one to set the home
+// we need to make sure that all samples are displayed
+$_REQUEST['max_records'] = -1;
 
 $sample = new BitSample();
 $samples = $sample->getList( $_REQUEST );
