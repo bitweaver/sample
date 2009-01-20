@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.10 2009/01/19 19:59:46 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.11 2009/01/20 22:21:15 dansut Exp $
 
 require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 
@@ -34,7 +34,7 @@ if( !empty( $_REQUEST['sample_settings'] )) {
 
 // The list of samples is used to pick one to set the home
 // we need to make sure that all samples are displayed
-$_REQUEST['max_records'] = -1;
+$_REQUEST['max_records'] = 0;
 
 $sample = new BitSample();
 $samples = $sample->getList( $_REQUEST );
