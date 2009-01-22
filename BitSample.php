@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.32 2008/11/20 17:14:17 squareing Exp $
-* $Id: BitSample.php,v 1.32 2008/11/20 17:14:17 squareing Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.33 2009/01/22 21:18:30 dansut Exp $
+* $Id: BitSample.php,v 1.33 2009/01/22 21:18:30 dansut Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.32 $ $Date: 2008/11/20 17:14:17 $ $Author: squareing $
+* @version $Revision: 1.33 $ $Date: 2009/01/22 21:18:30 $ $Author: dansut $
 * @class BitSample
 */
 
@@ -45,7 +45,7 @@ class BitSample extends LibertyMime {
 		$this->mContentTypeGuid = BITSAMPLE_CONTENT_TYPE_GUID;
 		$this->registerContentType( BITSAMPLE_CONTENT_TYPE_GUID, array(
 			'content_type_guid'   => BITSAMPLE_CONTENT_TYPE_GUID,
-			'content_description' => 'Sample package with bare essentials',
+			'content_description' => 'Bitweaver sample package data',
 			'handler_class'       => 'BitSample',
 			'handler_package'     => 'sample',
 			'handler_file'        => 'BitSample.php',
@@ -241,7 +241,7 @@ class BitSample extends LibertyMime {
 	 * 
 	 * @param array $pParamHash 
 	 * @access public
-	 * @return array List of samples
+	 * @return array List of sample data
 	 */
 	function getList( &$pParamHash ) {
 		global $gBitSystem, $gBitUser;

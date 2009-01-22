@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.11 2009/01/20 22:21:15 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.12 2009/01/22 21:18:30 dansut Exp $
 
 require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 
@@ -29,7 +29,7 @@ if( !empty( $_REQUEST['sample_settings'] )) {
 	foreach( $sampleToggles as $item => $data ) {
 		simple_set_toggle( $item, SAMPLE_PKG_NAME );
 	}
-	simple_set_int( 'home_sample', SAMPLE_PKG_NAME );
+	simple_set_int( 'sample_home_id', SAMPLE_PKG_NAME );
 }
 
 // The list of samples is used to pick one to set the home
