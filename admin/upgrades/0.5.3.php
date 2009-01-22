@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_sample/admin/upgrades/0.5.3.php,v 1.2 2009/01/22 21:21:55 dansut Exp $
+ * $Header: /cvsroot/bitweaver/_bit_sample/admin/upgrades/0.5.3.php,v 1.3 2009/01/22 21:33:34 dansut Exp $
  */
 global $gBitInstaller; $infoHash = array(
 	'package' => SAMPLE_PKG_NAME,
@@ -13,7 +13,7 @@ $gBitInstaller->registerPackageUpgrade( $infoHash, array(
 
 array( 'QUERY' =>
 	array(
-		'SQL92' => array("UPDATE `".BIT_DB_PREFIX."kernel_config` SET `config_name`='home_sample' WHERE `config_name`='sample_home_id';"),
+		'SQL92' => array("UPDATE `".BIT_DB_PREFIX."kernel_config` SET `config_name`='sample_home_id' WHERE `config_name`='home_sample';"),
 	),
 ),
 
