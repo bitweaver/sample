@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.16 2008/11/20 17:14:17 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.17 2009/01/22 20:43:30 dansut Exp $
  * @package sample
  */
 $tables = array(
@@ -54,8 +54,8 @@ $gBitInstaller->registerPreferences( SAMPLE_PKG_NAME, array(
 	array ( SAMPLE_PKG_NAME , 'sample_list_samples'     , 'y'              ),
 ));
 
-// Version
-$gBitInstaller->registerPackageVersion( SAMPLE_PKG_NAME, '0.5.1' );
+// Version - now use upgrades dir to set package version number.
+// $gBitInstaller->registerPackageVersion( SAMPLE_PKG_NAME, '0.5.1' );
 
 // Requirements
 $gBitInstaller->registerRequirements( SAMPLE_PKG_NAME, array(
