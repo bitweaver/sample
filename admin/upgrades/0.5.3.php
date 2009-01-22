@@ -1,8 +1,10 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_sample/admin/upgrades/0.5.3.php,v 1.3 2009/01/22 21:33:34 dansut Exp $
+ * $Header: /cvsroot/bitweaver/_bit_sample/admin/upgrades/0.5.3.php,v 1.4 2009/01/22 21:35:13 squareing Exp $
  */
-global $gBitInstaller; $infoHash = array(
+global $gBitInstaller;
+
+$infoHash = array(
 	'package' => SAMPLE_PKG_NAME,
 	'version' => str_replace( '.php', '', basename( __FILE__ )),
 	'description' => "Update the kernel_config home_sample to be sample_home_id for naming consistency",

@@ -1,8 +1,10 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_sample/admin/upgrades/0.5.2.php,v 1.1 2009/01/22 20:44:46 dansut Exp $
+ * $Header: /cvsroot/bitweaver/_bit_sample/admin/upgrades/0.5.2.php,v 1.2 2009/01/22 21:35:13 squareing Exp $
  */
-global $gBitInstaller; $infoHash = array(
+global $gBitInstaller;
+
+$infoHash = array(
 	'package' => SAMPLE_PKG_NAME,
 	'version' => str_replace( '.php', '', basename( __FILE__ )),
 	'description' => "Make sure all the package names in the kernel_config use singular of package name",
