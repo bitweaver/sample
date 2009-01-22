@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.7 2008/06/25 22:21:23 spiderr Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.8 2009/01/22 21:18:30 dansut Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -12,7 +12,7 @@ $gBitSystem->verifyPackage( 'sample' );
 
 // Get the default content if none is requested 
 if( !isset( $_REQUEST['sample_id'] ) ) {
-	$_REQUEST['sample_id'] = $gBitSystem->getConfig( "home_sample" );
+	$_REQUEST['sample_id'] = $gBitSystem->getConfig( "sample_home_id" );
 }
 
 // Look up the content

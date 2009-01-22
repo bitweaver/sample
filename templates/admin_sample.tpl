@@ -7,9 +7,9 @@
 				<div class="row">
 					{formlabel label="Home Sample" for="homeSample"}
 					{forminput}
-						<select name="home_sample" id="homeSample">
+						<select name="sample_home_id" id="homeSample">
 							{section name=ix loop=$samples}
-								<option value="{$samples[ix].sample_id|escape}" {if $samples[ix].sample_id eq $home_sample}selected="selected"{/if}>{$samples[ix].title|escape|truncate:20:"...":true}</option>
+								<option value="{$samples[ix].sample_id|escape}" {if $samples[ix].sample_id eq $sample_home_id}selected="selected"{/if}>{$samples[ix].title|escape|truncate:20:"...":true}</option>
 							{sectionelse}
 								<option>{tr}No records found{/tr}</option>
 							{/section}
