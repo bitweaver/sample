@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.12 2009/01/27 22:28:09 dansut Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/list_sample.tpl,v 1.1 2009/01/27 22:33:01 dansut Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
