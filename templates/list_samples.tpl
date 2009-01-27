@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.11 2008/10/20 21:40:11 spiderr Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/Attic/list_samples.tpl,v 1.12 2009/01/27 22:28:09 dansut Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -37,7 +37,7 @@
 					{/if}
 				</tr>
 
-				{foreach item=sample from=$samplesList}
+				{foreach item=sample from=$sampleList}
 					<tr class="{cycle values="even,odd"}">
 						{if $gBitSystem->isFeatureActive( 'sample_list_sample_id' )}
 							<td><a href="{$smarty.const.SAMPLE_PKG_URL}index.php?sample_id={$sample.sample_id|escape:"url"}" title="{$sample.sample_id}">{$sample.sample_id}</a></td>
@@ -79,7 +79,7 @@
 					<select name="submit_mult" onchange="this.form.submit();">
 						<option value="" selected="selected">{tr}with checked{/tr}:</option>
 						{if $gBitUser->hasPermission( 'p_sample_update' )}
-							<option value="remove_samples">{tr}remove{/tr}</option>
+							<option value="remove_sample_data">{tr}remove{/tr}</option>
 						{/if}
 					</select>
 

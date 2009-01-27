@@ -1,10 +1,10 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.17 2009/01/22 20:43:30 dansut Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.18 2009/01/27 22:28:09 dansut Exp $
  * @package sample
  */
 $tables = array(
-	'samples' => "
+	'sample_data' => "
 		sample_id I4 PRIMARY,
 		content_id I4 NOTNULL,
 		description C(160)
@@ -22,14 +22,12 @@ $gBitInstaller->registerPackageInfo( SAMPLE_PKG_NAME, array(
 	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
 ));
 
-// Indexes
-$gBitInstaller->registerSchemaIndexes( SAMPLE_PKG_NAME, array(
-	'samples_sample_id_idx' => array( 'table' => 'samples', 'cols' => 'sample_id', 'opts' => NULL ),
-));
+// $indices = array();
+// $gBitInstaller->registerSchemaIndexes( ARTICLES_PKG_NAME, $indices );
 
 // Sequences
 $gBitInstaller->registerSchemaSequences( SAMPLE_PKG_NAME, array (
-	'samples_sample_id_seq' => array( 'start' => 1 )
+	'sample_data_sample_id_seq' => array( 'start' => 1 )
 ));
 
 /* // Schema defaults
@@ -51,7 +49,7 @@ $gBitInstaller->registerPreferences( SAMPLE_PKG_NAME, array(
 	array ( SAMPLE_PKG_NAME , 'sample_list_sample_id'   , 'y'              ),
 	array ( SAMPLE_PKG_NAME , 'sample_list_title'       , 'y'              ),
 	array ( SAMPLE_PKG_NAME , 'sample_list_description' , 'y'              ),
-	array ( SAMPLE_PKG_NAME , 'sample_list_samples'     , 'y'              ),
+	array ( SAMPLE_PKG_NAME , 'sample_home_id'          , 0                ),
 ));
 
 // Version - now use upgrades dir to set package version number.

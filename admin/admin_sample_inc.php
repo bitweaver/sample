@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.12 2009/01/22 21:18:30 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.13 2009/01/27 22:28:09 dansut Exp $
 
 require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 
@@ -21,7 +21,7 @@ $formSampleLists = array(
 		'note' => 'Display the text.',
 	),
 );
-$gBitSmarty->assign( 'formSampleLists',$formSampleLists );
+$gBitSmarty->assign( 'formSampleLists', $formSampleLists );
 
 // Process the form if we've made some changes
 if( !empty( $_REQUEST['sample_settings'] )) {
@@ -32,11 +32,14 @@ if( !empty( $_REQUEST['sample_settings'] )) {
 	simple_set_int( 'sample_home_id', SAMPLE_PKG_NAME );
 }
 
-// The list of samples is used to pick one to set the home
-// we need to make sure that all samples are displayed
+// The list of sample data is used to pick one to set the home
+// we need to make sure that all sample records are displayed
 $_REQUEST['max_records'] = 0;
 
 $sample = new BitSample();
-$samples = $sample->getList( $_REQUEST );
-$gBitSmarty->assign_by_ref( 'samples', $samples);
+$sample_data = $sample->getList( $_REQUEST );
+$gBitSmarty->assign_by_ref( 'sample_data', $sample_data);
+
+$sample_home_id = $gBitSystem->getConfig( "sample_home_id" );
+$gBitSmarty->assign( 'sample_home_id', $sample_home_id );
 ?>

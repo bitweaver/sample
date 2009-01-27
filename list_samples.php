@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.16 2009/01/19 17:06:37 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/Attic/list_samples.php,v 1.17 2009/01/27 22:28:09 dansut Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
@@ -16,17 +16,17 @@ require_once( SAMPLE_PKG_PATH.'lookup_sample_inc.php' );
 // Now check permissions to access this page
 $gContent->verifyViewPermission();
 
-// Remove samples if we don't want them anymore
-if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQUEST["submit_mult"] == "remove_samples" ) {
+// Remove sample data if we don't want them anymore
+if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQUEST["submit_mult"] == "remove_sample_data" ) {
 
-	// Now check permissions to remove the selected samples
+	// Now check permissions to remove the selected sample data
 	$gBitSystem->verifyPermission( 'p_sample_update' );
 
 	if( !empty( $_REQUEST['cancel'] ) ) {
 		// user cancelled - just continue on, doing nothing
 	} elseif( empty( $_REQUEST['confirm'] ) ) {
 		$formHash['delete'] = TRUE;
-		$formHash['submit_mult'] = 'remove_samples';
+		$formHash['submit_mult'] = 'remove_sample_data';
 		foreach( $_REQUEST["checked"] as $del ) {
 			$tmpPage = new BitSample( $del);
 			if ( $tmpPage->load() && !empty( $tmpPage->mInfo['title'] )) {
@@ -38,7 +38,7 @@ if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQU
 		}
 		$gBitSystem->confirmDialog( $formHash, 
 			array(
-				'warning' => tra('Are you sure you want to delete ').count( $_REQUEST["checked"] ).' samples?',
+				'warning' => tra('Are you sure you want to delete ').count( $_REQUEST["checked"] ).' sample records?',
 				'error' => tra('This cannot be undone!')
 			)
 		);
@@ -57,8 +57,8 @@ if( isset( $_REQUEST["submit_mult"] ) && isset( $_REQUEST["checked"] ) && $_REQU
 
 // Create new sample object
 $sample = new BitSample();
-$samplesList = $sample->getList( $_REQUEST );
-$gBitSmarty->assign_by_ref( 'samplesList', $samplesList );
+$sampleList = $sample->getList( $_REQUEST );
+$gBitSmarty->assign_by_ref( 'sampleList', $sampleList );
 
 // getList() has now placed all the pagination information in $_REQUEST['listInfo']
 $gBitSmarty->assign_by_ref( 'listInfo', $_REQUEST['listInfo'] );

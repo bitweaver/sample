@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.33 2009/01/22 21:18:30 dansut Exp $
-* $Id: BitSample.php,v 1.33 2009/01/22 21:18:30 dansut Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.34 2009/01/27 22:28:09 dansut Exp $
+* $Id: BitSample.php,v 1.34 2009/01/27 22:28:09 dansut Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.33 $ $Date: 2009/01/22 21:18:30 $ $Author: dansut $
+* @version $Revision: 1.34 $ $Date: 2009/01/27 22:28:09 $ $Author: dansut $
 * @class BitSample
 */
 
@@ -79,7 +79,7 @@ class BitSample extends LibertyMime {
 				uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name,
 				uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name
 				$selectSql
-				FROM `".BIT_DB_PREFIX."samples` smpl
+				FROM `".BIT_DB_PREFIX."sample_data` smpl
 					INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
 					LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = lc.`modifier_user_id` )
 					LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = lc.`user_id` )
@@ -116,7 +116,7 @@ class BitSample extends LibertyMime {
 	function store( &$pParamHash ) {
 		$this->mDb->StartTrans();
 		if( $this->verify( $pParamHash )&& LibertyMime::store( $pParamHash ) ) {
-			$table = BIT_DB_PREFIX."samples";
+			$table = BIT_DB_PREFIX."sample_data";
 			if( $this->mSampleId ) {
 				$locId = array( "sample_id" => $pParamHash['sample_id'] );
 				$result = $this->mDb->associateUpdate( $table, $pParamHash['sample_store'], $locId );
@@ -126,7 +126,7 @@ class BitSample extends LibertyMime {
 					// if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
 					$pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
 				} else {
-					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'samples_sample_id_seq' );
+					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'sample_data_sample_id_seq' );
 				}
 				$this->mSampleId = $pParamHash['sample_store']['sample_id'];
 
@@ -214,7 +214,7 @@ class BitSample extends LibertyMime {
 		$ret = FALSE;
 		if( $this->isValid() ) {
 			$this->mDb->StartTrans();
-			$query = "DELETE FROM `".BIT_DB_PREFIX."samples` WHERE `content_id` = ?";
+			$query = "DELETE FROM `".BIT_DB_PREFIX."sample_sample` WHERE `content_id` = ?";
 			$result = $this->mDb->query( $query, array( $this->mContentId ) );
 			if( LibertyMime::expunge() ) {
 				$ret = TRUE;
@@ -268,13 +268,13 @@ class BitSample extends LibertyMime {
 
 		$query = "
 			SELECT smpl.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
-			FROM `".BIT_DB_PREFIX."samples` smpl
+			FROM `".BIT_DB_PREFIX."sample_data` smpl
 				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql
 			ORDER BY ".$this->mDb->convertSortmode( $sort_mode );
 		$query_cant = "
 			SELECT COUNT(*)
-			FROM `".BIT_DB_PREFIX."samples` smpl
+			FROM `".BIT_DB_PREFIX."sample_data` smpl
 				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql";
 		$result = $this->mDb->query( $query, $bindVars, $max_records, $offset );
