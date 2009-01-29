@@ -5,7 +5,7 @@
 			{if $gContent->hasUpdatePermission()}
 				<a title="{tr}Edit this sample{/tr}" href="{$smarty.const.SAMPLE_PKG_URL}edit.php?sample_id={$gContent->mInfo.sample_id}">{biticon ipackage="icons" iname="accessories-text-editor" iexplain="Edit Sample"}</a>
 			{/if}
-			{if $gBitUser->hasExpungePermission()}
+			{if $gContent->hasExpungePermission()}
 				<a title="{tr}Remove this sample{/tr}" href="{$smarty.const.SAMPLE_PKG_URL}remove_sample.php?sample_id={$gContent->mInfo.sample_id}">{biticon ipackage="icons" iname="edit-delete" iexplain="Remove Sample"}</a>
 			{/if}
 		{/if}<!-- end print_page -->
