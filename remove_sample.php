@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_sample/remove_sample.php,v 1.4 2008/10/21 02:38:21 wjames5 Exp $
+ * $Header: /cvsroot/bitweaver/_bit_sample/remove_sample.php,v 1.5 2009/01/29 16:23:34 dansut Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: remove_sample.php,v 1.4 2008/10/21 02:38:21 wjames5 Exp $
+ * $Id: remove_sample.php,v 1.5 2009/01/29 16:23:34 dansut Exp $
  * @package sample
  * @subpackage functions
  */
@@ -26,7 +26,7 @@ if( !$gContent->isValid() ) {
 	$gBitSystem->fatalError( "No sample indicated" );
 }
 
-$gContent->verifyUpdatePermission();
+$gContent->verifyExpungePermission();
 
 if( isset( $_REQUEST["confirm"] ) ) {
 	if( $gContent->expunge()  ) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.19 2009/01/29 16:05:24 dansut Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.20 2009/01/29 16:23:34 dansut Exp $
  * @package sample
  */
 $tables = array(
@@ -37,10 +37,11 @@ $gBitInstaller->registerSchemaDefault( SAMPLE_PKG_NAME, array(
 
 // User Permissions
 $gBitInstaller->registerUserPermissions( SAMPLE_PKG_NAME, array(
-	array ( 'p_sample_admin'  , 'Can admin sample'      , 'admin'      , SAMPLE_PKG_NAME ),
-	array ( 'p_sample_update' , 'Can update any sample' , 'editors'    , SAMPLE_PKG_NAME ),
-	array ( 'p_sample_create' , 'Can create a sample'   , 'registered' , SAMPLE_PKG_NAME ),
-	array ( 'p_sample_view'   , 'Can view sample'       , 'basic'      , SAMPLE_PKG_NAME ),
+	array ( 'p_sample_admin'  , 'Can admin sample'           , 'admin'      , SAMPLE_PKG_NAME ),
+	array ( 'p_sample_update' , 'Can update any sample entry', 'editors'    , SAMPLE_PKG_NAME ),
+	array ( 'p_sample_create' , 'Can create a sample entry'  , 'registered' , SAMPLE_PKG_NAME ),
+	array ( 'p_sample_view'   , 'Can view sample data'       , 'basic'      , SAMPLE_PKG_NAME ),
+	array ( 'p_sample_expunge', 'Can delete any sample entry', 'admin'      , SAMPLE_PKG_NAME ),
 ));
 
 // Default Preferences
