@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.18 2009/01/27 22:28:09 dansut Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.19 2009/01/29 16:05:24 dansut Exp $
  * @package sample
  */
 $tables = array(
@@ -27,7 +27,7 @@ $gBitInstaller->registerPackageInfo( SAMPLE_PKG_NAME, array(
 
 // Sequences
 $gBitInstaller->registerSchemaSequences( SAMPLE_PKG_NAME, array (
-	'sample_data_sample_id_seq' => array( 'start' => 1 )
+	'sample_data_id_seq' => array( 'start' => 1 )
 ));
 
 /* // Schema defaults
