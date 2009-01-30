@@ -8,7 +8,8 @@ $registerHash = array(
 );
 $gBitSystem->registerPackage( $registerHash );
 
-if( $gBitSystem->isPackageActive( 'sample' ) ) {
+// If package is active and the user has view auth then register the package menu
+if( $gBitSystem->isPackageActive( 'sample' ) && $gBitUser->hasPermission( 'p_sample_view' ) ) {
 	$menuHash = array(
 		'package_name'  => SAMPLE_PKG_NAME,
 		'index_url'     => SAMPLE_PKG_URL.'index.php',
