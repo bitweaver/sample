@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/list_sample.tpl,v 1.1 2009/01/27 22:33:01 dansut Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/list_sample.tpl,v 1.2 2009/01/30 16:57:50 dansut Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -32,9 +32,7 @@
 						<th>{smartlink ititle="Text" isort=data offset=$control.offset}</th>
 					{/if}
 
-					{if $gBitUser->hasPermission( 'p_sample_update' )}
-						<th>{tr}Actions{/tr}</th>
-					{/if}
+					<th>{tr}Actions{/tr}</th>
 				</tr>
 
 				{foreach item=sample from=$sampleList}
@@ -55,12 +53,14 @@
 							<td>{$sample.data|escape}</td>
 						{/if}
 
+						<td class="actionicon">
 						{if $gBitUser->hasPermission( 'p_sample_update' )}
-							<td class="actionicon">
-								{smartlink ititle="Edit" ifile="edit.php" ibiticon="icons/accessories-text-editor" sample_id=$sample.sample_id}
-								<input type="checkbox" name="checked[]" title="{$sample.title|escape}" value="{$sample.sample_id}" />
-							</td>
+							{smartlink ititle="Edit" ifile="edit.php" ibiticon="icons/accessories-text-editor" sample_id=$sample.sample_id}
 						{/if}
+						{if $gBitUser->hasPermission( 'p_sample_expunge' )}
+							<input type="checkbox" name="checked[]" title="{$sample.title|escape}" value="{$sample.sample_id}" />
+						{/if}
+						</td>
 					</tr>
 				{foreachelse}
 					<tr class="norecords"><td colspan="16">
@@ -69,7 +69,7 @@
 				{/foreach}
 			</table>
 
-			{if $gBitUser->hasPermission( 'p_sample_update' )}
+			{if $gBitUser->hasPermission( 'p_sample_expunge' )}
 				<div style="text-align:right;">
 					<script type="text/javascript">/* <![CDATA[ check / uncheck all */
 						document.write("<label for=\"switcher\">{tr}Select All{/tr}</label> ");
@@ -78,9 +78,7 @@
 
 					<select name="submit_mult" onchange="this.form.submit();">
 						<option value="" selected="selected">{tr}with checked{/tr}:</option>
-						{if $gBitUser->hasPermission( 'p_sample_update' )}
-							<option value="remove_sample_data">{tr}remove{/tr}</option>
-						{/if}
+						<option value="remove_sample_data">{tr}remove{/tr}</option>
 					</select>
 
 					<noscript><div><input type="submit" value="{tr}Submit{/tr}" /></div></noscript>
