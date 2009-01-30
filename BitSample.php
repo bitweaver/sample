@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.36 2009/01/29 16:23:34 dansut Exp $
-* $Id: BitSample.php,v 1.36 2009/01/29 16:23:34 dansut Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.37 2009/01/30 21:39:19 dansut Exp $
+* $Id: BitSample.php,v 1.37 2009/01/30 21:39:19 dansut Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.36 $ $Date: 2009/01/29 16:23:34 $ $Author: dansut $
+* @version $Revision: 1.37 $ $Date: 2009/01/30 21:39:19 $ $Author: dansut $
 * @class BitSample
 */
 
@@ -152,8 +152,6 @@ class BitSample extends LibertyMime {
 	 * @return boolean TRUE on success, FALSE on failure - $this->mErrors will contain reason for failure
 	 */
 	function verify( &$pParamHash ) {
-		global $gBitUser, $gBitSystem;
-
 		// make sure we're all loaded up of we have a mSampleId
 		if( $this->verifyId( $this->mSampleId ) && empty( $this->mInfo ) ) {
 			$this->load();
@@ -212,16 +210,21 @@ class BitSample extends LibertyMime {
 	 * @return boolean TRUE on success, FALSE on failure
 	 */
 	function expunge() {
+		global $gBitSystem;
 		$ret = FALSE;
 		if( $this->isValid() ) {
 			$this->mDb->StartTrans();
-			$query = "DELETE FROM `".BIT_DB_PREFIX."sample_sample` WHERE `content_id` = ?";
+			$query = "DELETE FROM `".BIT_DB_PREFIX."sample_data` WHERE `content_id` = ?";
 			$result = $this->mDb->query( $query, array( $this->mContentId ) );
 			if( LibertyMime::expunge() ) {
 				$ret = TRUE;
 				$this->mDb->CompleteTrans();
 			} else {
 				$this->mDb->RollbackTrans();
+			}
+			// If deleting the default/home sample record then unset this.
+			if( $gBitSystem->getConfig( 'sample_home_id' ) == $this->mSampleId ) {
+				$gBitSystem->storeConfig( 'sample_home_id', 0, SAMPLE_PKG_NAME );
 			}
 		}
 		return $ret;
@@ -245,7 +248,6 @@ class BitSample extends LibertyMime {
 	 * @return array List of sample data
 	 */
 	function getList( &$pParamHash ) {
-		global $gBitSystem, $gBitUser;
 		// this makes sure parameters used later on are set
 		LibertyContent::prepGetList( $pParamHash );
 
