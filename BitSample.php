@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.37 2009/01/30 21:39:19 dansut Exp $
-* $Id: BitSample.php,v 1.37 2009/01/30 21:39:19 dansut Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.38 2009/02/23 20:53:59 dansut Exp $
+* $Id: BitSample.php,v 1.38 2009/02/23 20:53:59 dansut Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.37 $ $Date: 2009/01/30 21:39:19 $ $Author: dansut $
+* @version $Revision: 1.38 $ $Date: 2009/02/23 20:53:59 $ $Author: dansut $
 * @class BitSample
 */
 
@@ -76,15 +76,15 @@ class BitSample extends LibertyMime {
 			$this->getServicesSql( 'content_load_sql_function', $selectSql, $joinSql, $whereSql, $bindVars );
 
 			$query = "
-				SELECT smpl.*, lc.*,
+				SELECT sample.*, lc.*,
 				uue.`login` AS modifier_user, uue.`real_name` AS modifier_real_name,
 				uuc.`login` AS creator_user, uuc.`real_name` AS creator_real_name
 				$selectSql
-				FROM `".BIT_DB_PREFIX."sample_data` smpl
-					INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
+				FROM `".BIT_DB_PREFIX."sample_data` sample
+					INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = sample.`content_id` ) $joinSql
 					LEFT JOIN `".BIT_DB_PREFIX."users_users` uue ON( uue.`user_id` = lc.`modifier_user_id` )
 					LEFT JOIN `".BIT_DB_PREFIX."users_users` uuc ON( uuc.`user_id` = lc.`user_id` )
-				WHERE smpl.`$lookupColumn`=? $whereSql";
+				WHERE sample.`$lookupColumn`=? $whereSql";
 			$result = $this->mDb->query( $query, $bindVars );
 
 			if( $result && $result->numRows() ) {
@@ -270,15 +270,15 @@ class BitSample extends LibertyMime {
 		}
 
 		$query = "
-			SELECT smpl.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
-			FROM `".BIT_DB_PREFIX."sample_data` smpl
-				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
+			SELECT sample.*, lc.`content_id`, lc.`title`, lc.`data` $selectSql
+			FROM `".BIT_DB_PREFIX."sample_data` sample
+				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = sample.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql
 			ORDER BY ".$this->mDb->convertSortmode( $sort_mode );
 		$query_cant = "
 			SELECT COUNT(*)
-			FROM `".BIT_DB_PREFIX."sample_data` smpl
-				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = smpl.`content_id` ) $joinSql
+			FROM `".BIT_DB_PREFIX."sample_data` sample
+				INNER JOIN `".BIT_DB_PREFIX."liberty_content` lc ON( lc.`content_id` = sample.`content_id` ) $joinSql
 			WHERE lc.`content_type_guid` = ? $whereSql";
 		$result = $this->mDb->query( $query, $bindVars, $max_records, $offset );
 		$ret = array();
