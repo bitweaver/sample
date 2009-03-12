@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.38 2009/02/23 20:53:59 dansut Exp $
-* $Id: BitSample.php,v 1.38 2009/02/23 20:53:59 dansut Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.39 2009/03/12 21:00:22 dansut Exp $
+* $Id: BitSample.php,v 1.39 2009/03/12 21:00:22 dansut Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.38 $ $Date: 2009/02/23 20:53:59 $ $Author: dansut $
+* @version $Revision: 1.39 $ $Date: 2009/03/12 21:00:22 $ $Author: dansut $
 * @class BitSample
 */
 
@@ -115,8 +115,8 @@ class BitSample extends LibertyMime {
 	 * @return boolean TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
 	function store( &$pParamHash ) {
-		$this->mDb->StartTrans();
 		if( $this->verify( $pParamHash )&& LibertyMime::store( $pParamHash ) ) {
+			$this->mDb->StartTrans();
 			$table = BIT_DB_PREFIX."sample_data";
 			if( $this->mSampleId ) {
 				$locId = array( "sample_id" => $pParamHash['sample_id'] );
@@ -134,10 +134,12 @@ class BitSample extends LibertyMime {
 				$result = $this->mDb->associateInsert( $table, $pParamHash['sample_store'] );
 			}
 
-
 			$this->mDb->CompleteTrans();
 			$this->load();
+		} else {
+			$this->mErrors['store'] = 'Failed to save this sample.';
 		}
+
 		return( count( $this->mErrors )== 0 );
 	}
 
@@ -184,20 +186,11 @@ class BitSample extends LibertyMime {
 			$pParamHash['edit'] = $pParamHash['data'];
 		}
 
-		// check for name issues, first truncate length if too long
+		// If title specified truncate to make sure not too long
 		if( !empty( $pParamHash['title'] ) ) {
-			if( empty( $this->mSampleId ) ) {
-				if( empty( $pParamHash['title'] ) ) {
-					$this->mErrors['title'] = 'You must enter a name for this page.';
-				} else {
-					$pParamHash['content_store']['title'] = substr( $pParamHash['title'], 0, 160 );
-				}
-			} else {
-				$pParamHash['content_store']['title'] =( isset( $pParamHash['title'] ) )? substr( $pParamHash['title'], 0, 160 ): '';
-			}
-		} else if( empty( $pParamHash['title'] ) ) {
-			// no name specified
-			$this->mErrors['title'] = 'You must specify a name';
+			$pParamHash['content_store']['title'] = substr( $pParamHash['title'], 0, 160 );
+		} else if( empty( $pParamHash['title'] ) ) { // else is error as must have title
+			$this->mErrors['title'] = 'You must enter a title for this sample.';
 		}
 
 		return( count( $this->mErrors )== 0 );

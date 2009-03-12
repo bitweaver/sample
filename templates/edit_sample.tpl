@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.20 2009/01/20 15:16:04 squareing Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.21 2009/03/12 21:00:22 dansut Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -26,8 +26,10 @@
 				{jstab title="Record"}
 					{legend legend="Sample Record"}
 						<input type="hidden" name="sample[sample_id]" value="{$gContent->mInfo.sample_id}" />
+						{formfeedback warning=$errors.store}
 
 						<div class="row">
+							{formfeedback warning=$errors.title}
 							{formlabel label="Title" for="title"}
 							{forminput}
 								<input type="text" size="50" name="sample[title]" id="title" value="{$gContent->mInfo.title|escape}" />
@@ -42,7 +44,7 @@
 							{/forminput}
 						</div>
 
-						{textarea name="sample[edit]"}{/textarea}
+						{textarea name="sample[edit]"}{$gContent->mInfo.data}{/textarea}
 
 						{* any simple service edit options *}
 						{include file="bitpackage:liberty/edit_services_inc.tpl" serviceFile="content_edit_mini_tpl"}
