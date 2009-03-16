@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.39 2009/03/12 21:00:22 dansut Exp $
-* $Id: BitSample.php,v 1.39 2009/03/12 21:00:22 dansut Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.40 2009/03/16 20:41:14 dansut Exp $
+* $Id: BitSample.php,v 1.40 2009/03/16 20:41:14 dansut Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.39 $ $Date: 2009/03/12 21:00:22 $ $Author: dansut $
+* @version $Revision: 1.40 $ $Date: 2009/03/16 20:41:14 $ $Author: dansut $
 * @class BitSample
 */
 
@@ -211,12 +211,10 @@ class BitSample extends LibertyMime {
 			$result = $this->mDb->query( $query, array( $this->mContentId ) );
 			if( LibertyMime::expunge() ) {
 				$ret = TRUE;
-				$this->mDb->CompleteTrans();
-			} else {
-				$this->mDb->RollbackTrans();
 			}
+			$this->mDb->CompleteTrans();
 			// If deleting the default/home sample record then unset this.
-			if( $gBitSystem->getConfig( 'sample_home_id' ) == $this->mSampleId ) {
+			if( $ret && $gBitSystem->getConfig( 'sample_home_id' ) == $this->mSampleId ) {
 				$gBitSystem->storeConfig( 'sample_home_id', 0, SAMPLE_PKG_NAME );
 			}
 		}
