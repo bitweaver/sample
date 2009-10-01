@@ -1,8 +1,8 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.9 2009/01/30 21:39:19 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.10 2009/10/01 13:45:47 wjames5 Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
 
 // Initialization
 require_once( '../bit_setup_inc.php' );

@@ -1,8 +1,8 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/list_sample.php,v 1.1 2009/01/27 22:33:01 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/list_sample.php,v 1.2 2009/10/01 13:45:47 wjames5 Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
 // Initialization
 require_once( '../bit_setup_inc.php' );
 require_once( SAMPLE_PKG_PATH.'BitSample.php' );
