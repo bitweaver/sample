@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.40 2009/03/16 20:41:14 dansut Exp $
-* $Id: BitSample.php,v 1.40 2009/03/16 20:41:14 dansut Exp $
+* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.41 2010/04/14 20:03:40 dansut Exp $
+* $Id: BitSample.php,v 1.41 2010/04/14 20:03:40 dansut Exp $
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.40 $ $Date: 2009/03/16 20:41:14 $ $Author: dansut $
+* @version $Revision: 1.41 $ $Date: 2010/04/14 20:03:40 $ $Author: dansut $
 * @class BitSample
 */
 
@@ -115,29 +115,28 @@ class BitSample extends LibertyMime {
 	 * @return boolean TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
 	function store( &$pParamHash ) {
-		if( $this->verify( $pParamHash )&& LibertyMime::store( $pParamHash ) ) {
+		if( $this->verify( $pParamHash ) ) {
 			$this->mDb->StartTrans();
-			$table = BIT_DB_PREFIX."sample_data";
-			if( $this->mSampleId ) {
-				$locId = array( "sample_id" => $pParamHash['sample_id'] );
-				$result = $this->mDb->associateUpdate( $table, $pParamHash['sample_store'], $locId );
-			} else {
-				$pParamHash['sample_store']['content_id'] = $pParamHash['content_id'];
-				if( @$this->verifyId( $pParamHash['sample_id'] ) ) {
-					// if pParamHash['sample_id'] is set, some is requesting a particular sample_id. Use with caution!
-					$pParamHash['sample_store']['sample_id'] = $pParamHash['sample_id'];
+			if( LibertyMime::store( $pParamHash ) ) {
+				$table = BIT_DB_PREFIX."sample_data";
+				if( $this->mSampleId ) {
+					$locId = array( "sample_id" => $this->mSampleId );
+					$this->mDb->associateUpdate( $table, $pParamHash['sample_store'], $locId );
 				} else {
+					$pParamHash['sample_store']['content_id'] = $pParamHash['content_id'];
 					$pParamHash['sample_store']['sample_id'] = $this->mDb->GenID( 'sample_data_id_seq' );
+					$this->mSampleId = $pParamHash['sample_store']['sample_id'];
+					$this->mDb->associateInsert( $table, $pParamHash['sample_store'] );
 				}
-				$this->mSampleId = $pParamHash['sample_store']['sample_id'];
-
-				$result = $this->mDb->associateInsert( $table, $pParamHash['sample_store'] );
+			} else {
+				$this->mErrors['store'] = 'Could not store Liberty data to save this sample.';
 			}
-
-			$this->mDb->CompleteTrans();
+			if( !$this->mDb->CompleteTrans() ) {
+				$this->mErrors['store'] = 'Sample store: '.$this->mDb->ErrorMsg();
+			}
 			$this->load();
 		} else {
-			$this->mErrors['store'] = 'Failed to save this sample.';
+			$this->mErrors['store'] = 'Could not verify data to save this sample.';
 		}
 
 		return( count( $this->mErrors )== 0 );
@@ -154,7 +153,7 @@ class BitSample extends LibertyMime {
 	 * @return boolean TRUE on success, FALSE on failure - $this->mErrors will contain reason for failure
 	 */
 	function verify( &$pParamHash ) {
-		// make sure we're all loaded up of we have a mSampleId
+		// make sure we're all loaded up if we have a mSampleId
 		if( $this->verifyId( $this->mSampleId ) && empty( $this->mInfo ) ) {
 			$this->load();
 		}
@@ -173,13 +172,13 @@ class BitSample extends LibertyMime {
 		}
 
 		// check some lengths, if too long, then truncate
-		if( $this->isValid() && !empty( $this->mInfo['description'] ) && empty( $pParamHash['description'] ) ) {
+		if( $this->isValid() && !empty( $this->mInfo['description'] ) && empty( $pParamHash['sample']['description'] ) ) {
 			// someone has deleted the description, we need to null it out
 			$pParamHash['sample_store']['description'] = '';
-		} else if( empty( $pParamHash['description'] ) ) {
-			unset( $pParamHash['description'] );
+		} else if( empty( $pParamHash['sample']['description'] ) ) {
+			unset( $pParamHash['sample']['description'] );
 		} else {
-			$pParamHash['sample_store']['description'] = substr( $pParamHash['description'], 0, 200 );
+			$pParamHash['sample_store']['description'] = substr( $pParamHash['sample']['description'], 0, 200 );
 		}
 
 		if( !empty( $pParamHash['data'] ) ) {

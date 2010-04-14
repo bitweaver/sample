@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.21 2009/03/12 21:00:22 dansut Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_sample/templates/edit_sample.tpl,v 1.22 2010/04/14 20:03:41 dansut Exp $ *}
 {strip}
 <div class="floaticon">{bithelp}</div>
 
@@ -32,7 +32,7 @@
 							{formfeedback warning=$errors.title}
 							{formlabel label="Title" for="title"}
 							{forminput}
-								<input type="text" size="50" name="sample[title]" id="title" value="{$gContent->mInfo.title|escape}" />
+								<input type="text" size="50" name="title" id="title" value="{$gContent->mInfo.title|escape}" />
 							{/forminput}
 						</div>
 
@@ -44,14 +44,13 @@
 							{/forminput}
 						</div>
 
-						{textarea name="sample[edit]"}{$gContent->mInfo.data}{/textarea}
+						{textarea name="edit"}{$gContent->mInfo.data}{/textarea}
 
 						{* any simple service edit options *}
 						{include file="bitpackage:liberty/edit_services_inc.tpl" serviceFile="content_edit_mini_tpl"}
 
 						<div class="row submit">
 							<input type="submit" name="preview" value="{tr}Preview{/tr}" />
-							<input type="submit" name="save_sample" value="{tr}Save{/tr}" />
 						</div>
 					{/legend}
 				{/jstab}
@@ -59,6 +58,9 @@
 				{* any service edit template tabs *}
 				{include file="bitpackage:liberty/edit_services_inc.tpl" serviceFile="content_edit_tab_tpl"}
 			{/jstabs}
+			<div class="row submit">
+				<input type="submit" name="save_sample" value="{tr}Save{/tr}" />
+			</div>
 		{/form}
 	</div><!-- end .body -->
 </div><!-- end .sample -->
