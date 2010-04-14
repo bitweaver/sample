@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.12 2010/02/08 21:27:25 wjames5 Exp $
+// $Header: /cvsroot/bitweaver/_bit_sample/index.php,v 1.13 2010/04/14 20:14:15 dansut Exp $
 // Copyright (c) 2004 bitweaver Sample
 // All Rights Reserved. See below for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
@@ -30,6 +30,10 @@ if( !empty( $_REQUEST['sample_id'] ) ) {
 
 	// Now check permissions to access this content 
 	$gContent->verifyViewPermission();
+
+	// Give any enabled services chance to load their data
+	$displayHash = array( 'perm_name' => 'p_sample_view' );
+	$gContent->invokeServices( 'content_display_function', $displayHash );
 
 	// Add a hit to the counter
 	$gContent->addHit();
