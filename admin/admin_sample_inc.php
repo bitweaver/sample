@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_sample/admin/admin_sample_inc.php,v 1.13 2009/01/27 22:28:09 dansut Exp $
+// $Header$
 
 require_once( SAMPLE_PKG_PATH.'BitSample.php' );
 

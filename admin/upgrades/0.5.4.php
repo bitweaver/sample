@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_sample/admin/upgrades/0.5.4.php,v 1.1 2009/01/27 22:28:09 dansut Exp $
+ * $Header$
  */
 global $gBitInstaller;
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_sample/admin/schema_inc.php,v 1.20 2009/01/29 16:23:34 dansut Exp $
+ * @version $Header$
  * @package sample
  */
 $tables = array(

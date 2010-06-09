@@ -1,7 +1,7 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_sample/BitSample.php,v 1.42 2010/04/18 02:27:24 wjames5 Exp $
-* $Id: BitSample.php,v 1.42 2010/04/18 02:27:24 wjames5 Exp $
+* $Header$
+* $Id$
 */
 
 /**
@@ -10,7 +10,7 @@
 *
 * date created 2004/8/15
 * @author spider <spider@steelsun.com>
-* @version $Revision: 1.42 $ $Date: 2010/04/18 02:27:24 $ $Author: wjames5 $
+* @version $Revision$
 * @class BitSample
 */
 
