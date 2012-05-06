@@ -39,7 +39,7 @@ class BitSample extends LibertyMime {
 	 * @return void
 	 */
 	function BitSample( $pSampleId=NULL, $pContentId=NULL ) {
-		LibertyMime::LibertyMime();
+		parent::__construct();
 		$this->mSampleId = $pSampleId;
 		$this->mContentId = $pContentId;
 		$this->mContentTypeGuid = BITSAMPLE_CONTENT_TYPE_GUID;
