@@ -55,7 +55,7 @@
 
 						<td class="actionicon">
 						{if $gBitUser->hasPermission( 'p_sample_update' )}
-							{smartlink ititle="Edit" ifile="edit.php" ibiticon="icons/accessories-text-editor" sample_id=$sample.sample_id}
+							{smartlink ititle="Edit" ifile="edit.php" booticon="icon-edit" sample_id=$sample.sample_id}
 						{/if}
 						{if $gBitUser->hasPermission( 'p_sample_expunge' )}
 							<input type="checkbox" name="checked[]" title="{$sample.title|escape}" value="{$sample.sample_id}" />
