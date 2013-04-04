@@ -50,7 +50,7 @@
 						{include file="bitpackage:liberty/edit_services_inc.tpl" serviceFile="content_edit_mini_tpl"}
 
 						<div class="control-group submit">
-							<input type="submit" name="preview" value="{tr}Preview{/tr}" />
+							<input type="submit" class="btn" name="preview" value="{tr}Preview{/tr}" />
 						</div>
 					{/legend}
 				{/jstab}
@@ -59,7 +59,7 @@
 				{include file="bitpackage:liberty/edit_services_inc.tpl" serviceFile="content_edit_tab_tpl"}
 			{/jstabs}
 			<div class="control-group submit">
-				<input type="submit" name="save_sample" value="{tr}Save{/tr}" />
+				<input type="submit" class="btn" name="save_sample" value="{tr}Save{/tr}" />
 			</div>
 		{/form}
 	</div><!-- end .body -->

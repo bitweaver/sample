@@ -81,7 +81,7 @@
 						<option value="remove_sample_data">{tr}remove{/tr}</option>
 					</select>
 
-					<noscript><div><input type="submit" value="{tr}Submit{/tr}" /></div></noscript>
+					<noscript><div><input type="submit" class="btn" value="{tr}Submit{/tr}" /></div></noscript>
 				</div>
 			{/if}
 		{/form}
