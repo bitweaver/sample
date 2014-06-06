@@ -4,7 +4,7 @@
 		{jstab title="Sample Settings"}
 			{legend legend="Sample Settings"}
 				<input type="hidden" name="page" value="{$page}" />
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Home Sample" for="homeSample"}
 					{forminput}
 						<select name="sample_home_id" id="homeSample">
@@ -24,7 +24,7 @@
 			{legend legend="List Settings"}
 				<input type="hidden" name="page" value="{$page}" />
 				{foreach from=$formSampleLists key=item item=output}
-					<div class="control-group">
+					<div class="form-group">
 						{formlabel label=$output.label for=$item}
 						{forminput}
 							{html_checkboxes name="$item" values="y" checked=$gBitSystem->getConfig($item) labels=false id=$item}
@@ -35,7 +35,7 @@
 			{/legend}
 		{/jstab}
 
-		<div class="control-group submit">
+		<div class="form-group submit">
 			<input type="submit" class="btn btn-default" name="sample_settings" value="{tr}Change preferences{/tr}" />
 		</div>
 	{/jstabs}
